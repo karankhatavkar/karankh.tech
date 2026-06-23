@@ -94,11 +94,4 @@ export const projects: Project[] = [
     tech: ["PyTorch", "CNN-LSTM", "TCN"],
     href: "https://github.com/karankhatavkar/predictive-maintenance-bearing-tool-wear",
   },
-  {
-    name: "Customer Churn ANN",
-    description:
-      "Feedforward net (~86%) predicting bank churn, served via Streamlit.",
-    tech: ["ANN", "Streamlit"],
-    href: "https://github.com/karankhatavkar/customer-churn-ann",
-  },
 ];
