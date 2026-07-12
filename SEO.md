@@ -23,9 +23,9 @@ For a single-page personal portfolio, that translates to three plays:
 | Surface | File | Notes |
 |---|---|---|
 | Site constants | `app/data/site.ts` | Single source for URL/title/description |
-| Metadata | `app/layout.tsx` | `metadataBase`, canonical, OG `profile` type, Twitter `summary_large_image`, robots directives (`max-image-preview:large`), author/creator, keywords |
+| Metadata | `app/layout.tsx` | `metadataBase`, canonical, OG `profile` type, Twitter `summary_large_image` card attributed to `@KhatavkarKaran`, split descriptions (146-char SERP / 97-char social), robots directives (`max-image-preview:large`), author/creator, keywords |
 | Theme meta | `app/layout.tsx` | `viewport` export: `themeColor` + `colorScheme: dark` |
-| JSON-LD | `app/data/structured-data.ts` → rendered in `app/page.tsx` | `@graph`: `Person` (sameAs, knowsAbout, alumniOf, hasCredential, Pune address) + `WebSite` + `ProfilePage` (Google's recommended pattern for personal sites) |
+| JSON-LD | `app/data/structured-data.ts` → rendered in `app/page.tsx` | `@graph`: `Person` + `WebSite` + `ProfilePage` (Google's recommended pattern for personal sites). Person carries knowsAbout, alumniOf, hasCredential, Pune address, and `sameAs` across LinkedIn, GitHub, Hugging Face, Kaggle, ORCID, Upwork, X, YouTube, Instagram — every profile that corroborates the professional entity |
 | OG/share image | `app/opengraph-image.tsx` (+ `twitter-image.tsx` re-export) | 1200×630, generated at build with `ImageResponse`; dark monochrome card in Geist (Next 16's bundled OG font) matching the site design |
 | Favicons | `app/icon.tsx` (32 + 48 px), `app/apple-icon.tsx` (180 px), `public/favicon.ico` (legacy fallback) | "K" monogram; 48px size satisfies Google's SERP-favicon minimum |
 | Sitemap | `app/sitemap.ts` | Single URL, `lastModified` at build time |
@@ -35,16 +35,54 @@ Everything is statically prerendered (`npm run build` shows all routes `○/●`
 
 ## Post-deploy checklist (manual, one-time)
 
-1. **Google Search Console** — verify `karankh.tech` as a *Domain* property via a DNS TXT record in Cloudflare (no code needed; alternatively set `metadata.verification.google`). Then submit `https://karankh.tech/sitemap.xml` and request indexing for the homepage.
+1. **Google Search Console** — verify `karankh.tech` as a *Domain* property via a DNS TXT record in Cloudflare (no code needed; alternatively set `metadata.verification.google`). Then submit `https://karankh.tech/sitemap.xml` and request indexing for the homepage. ✅ *Done Jul 13, 2026 — property verified, sitemap submitted, homepage indexed ("URL is on Google").*
 2. **Bing Webmaster Tools** — import the verified GSC property (one click). Bing powers ChatGPT's web search — worth the five minutes.
 3. **Backlinks from your own profiles** (the highest-leverage off-site action):
    - LinkedIn → add `https://karankh.tech` as the profile Website and in the About section.
-   - GitHub → set the profile website field + mention in the profile README.
+   - GitHub → set the profile website field ✅ *(done)* + a direct link in the profile README *(pending — see the GitHub link plan below)*.
    - These reciprocate the site's `sameAs` links, letting Google/AI engines reconcile the entity from both directions.
 4. **Validate after deploy:**
    - Structured data: [Rich Results Test](https://search.google.com/test/rich-results) and [validator.schema.org](https://validator.schema.org/)
    - Share cards: [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/), [OpenGraph.xyz](https://www.opengraph.xyz/)
 5. **Monitor** — Search Console's Performance report (includes a generative-AI section) monthly; watch the "Karan Khatavkar" query position.
+
+## GitHub link plan (per-repo READMEs)
+
+GitHub marks README links `rel="nofollow"`, so the value is **entity corroboration, crawl-discovery paths, and AI-crawler visibility** — not classic PageRank. Keep anchor text natural (the name, not keywords). Two parts:
+
+**A. Repo "About" sidebar** — on every public repo, set *About → Website* to `https://karankh.tech` (one click, renders above the README). Exception: `edgarbrief` keeps its live demo `https://edgarbrief.karankh.tech` there; the site link goes in its README instead.
+
+**B. README author link** — two templates:
+
+```markdown
+## Author
+
+Built by **[Karan Khatavkar](https://karankh.tech)** — AI/ML engineer (LLM, RAG & NLP), open to freelance & contract work.
+```
+
+```markdown
+> Built by [Karan Khatavkar](https://karankh.tech) — AI/ML engineer, open to freelance & contract work.
+```
+
+| Repo | Template | Placement |
+|---|---|---|
+| `edgarbrief` | Author section + one-liner | Section at the very end; one-liner under the intro, before "The problem" |
+| `founders-court` | Author section | Between "Trust and safety" and "License" |
+| `biobert-medical-ner` | Author section | After "Notes" |
+| `alzheimer-eeg-classification` | Author section | Above "License" |
+| `variational-autoencoders-image-restoration` | Author section | End, after dataset list |
+| `ak47-acoustic-rul` | Author section | End, after Models table |
+| `predictive-maintenance-bearing-tool-wear` | Author section | End, after dataset list |
+| `premarket-brief` | Author section | End, after "Disclaimer" |
+| `customer-churn-ann` | Author section | End, after Notebooks table |
+| `diabetes-prediction-system` | Author section | Above "License" (add to its ToC) |
+| `spam-email-classification` | Author section | Above "License" (add to its ToC) |
+| `Cloud-Based-Inter-College-Announcement-System` | Author section | Above "License" |
+| `mini-xVal` | One-liner | Under the intro paragraph |
+| `denoising-data` | One-liner | At the end |
+| `dtmf-robot` | One-liner | At the end |
+| `karankhatavkar` (profile README) | Custom | Prominent link under the headline: `🌐 **[karankh.tech](https://karankh.tech)** — portfolio & contact` (currently only the edgarbrief subdomain is linked) |
+| `karankh.tech` (this repo) | — | ✅ Done — branded README with site link replaces the create-next-app stub |
 
 ## Future levers (when ready to invest more)
 

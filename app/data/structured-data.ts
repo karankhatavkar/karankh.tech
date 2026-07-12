@@ -6,6 +6,18 @@ import { site } from "./site";
 const personId = `${site.url}/#person`;
 const websiteId = `${site.url}/#website`;
 
+// Profiles beyond the visible Contact links (which stay email/LinkedIn/GitHub
+// per PROJECT.md) — each corroborates the Person entity for search/AI engines.
+const extraProfiles = [
+  "https://huggingface.co/karankhatavkar",
+  "https://www.kaggle.com/devkarankh",
+  "https://orcid.org/0009-0008-0175-5970",
+  "https://www.upwork.com/freelancers/karankh",
+  "https://x.com/KhatavkarKaran",
+  "https://www.youtube.com/@dev_brew",
+  "https://www.instagram.com/dev_brew/",
+];
+
 // ProfilePage + Person graph per Google's profile-page structured data
 // guidelines. `sameAs` ties the site to LinkedIn/GitHub so search and AI
 // engines reconcile them as one entity.
@@ -26,7 +38,10 @@ export const structuredData = {
         addressLocality: "Pune",
         addressCountry: "IN",
       },
-      sameAs: profile.socials.map((social) => social.href),
+      sameAs: [
+        ...profile.socials.map((social) => social.href),
+        ...extraProfiles,
+      ],
       knowsAbout: [
         "Large Language Models",
         "Retrieval-Augmented Generation",
