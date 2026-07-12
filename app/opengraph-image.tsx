@@ -80,8 +80,22 @@ export default function OpenGraphImage() {
           }}
         >
           <div style={{ display: "flex", color: "#e4e4e7" }}>karankh.tech</div>
-          <div style={{ display: "flex", color: "#71717a" }}>
-            {`${profile.location} · Freelance & contract`}
+          <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+            <div style={{ display: "flex", color: "#71717a" }}>
+              Open to freelance &amp; contract
+            </div>
+            <div
+              style={{
+                display: "flex",
+                backgroundColor: "#fafafa",
+                color: "#050505",
+                borderRadius: 999,
+                padding: "14px 30px",
+                fontSize: 24,
+              }}
+            >
+              Get in touch
+            </div>
           </div>
         </div>
       </div>
