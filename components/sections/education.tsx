@@ -4,18 +4,22 @@ import { Section } from "@/components/sections/section";
 export function Education() {
   return (
     <Section id="education" title="Education">
-      <div className="space-y-8">
+      <div className="divide-y">
         {education.map((entry) => (
-          <article key={entry.institution}>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 className="text-lg font-medium">{entry.institution}</h3>
-              <span className="font-mono text-xs text-muted-foreground">
-                {entry.period} · {entry.location}
-              </span>
+          <article
+            key={entry.institution}
+            className="grid gap-x-8 gap-y-2 py-6 first:pt-0 last:pb-0 sm:grid-cols-[150px_1fr]"
+          >
+            <div className="font-mono text-xs leading-relaxed text-muted-foreground">
+              <p>{entry.period}</p>
+              <p>{entry.location}</p>
             </div>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {entry.degree} · {entry.detail}
-            </p>
+            <div className="min-w-0">
+              <h3 className="text-lg font-medium">{entry.institution}</h3>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                {entry.degree} · {entry.detail}
+              </p>
+            </div>
           </article>
         ))}
       </div>

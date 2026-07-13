@@ -126,28 +126,32 @@ export function Projects() {
     <Section id="projects" title="Projects">
       <FeaturedProjectCard />
 
-      <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+      <ul className="mt-6 divide-y">
         {projects.map((project) => (
           <li key={project.name}>
             <a
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="block h-full rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+              className="group grid gap-x-8 gap-y-1 py-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50 sm:grid-cols-[1fr_auto] sm:items-baseline"
             >
-              <Card size="sm" className="h-full transition-shadow hover:shadow-md">
-                <CardHeader>
-                  <CardTitle>{project.name}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-1 flex-col">
-                  <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
-                    {project.description}
-                  </p>
-                  <p className="mt-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-                    {project.tech.join(" · ")}
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="min-w-0">
+                <span className="flex items-baseline gap-2 text-lg font-medium">
+                  {project.name}
+                  <span
+                    aria-hidden
+                    className="text-sm text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  >
+                    ↗
+                  </span>
+                </span>
+                <p className="mt-1 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+                  {project.description}
+                </p>
+              </div>
+              <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-right">
+                {project.tech.join(" · ")}
+              </span>
             </a>
           </li>
         ))}

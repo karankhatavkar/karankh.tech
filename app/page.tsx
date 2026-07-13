@@ -20,7 +20,7 @@ export default function Home() {
         }}
       />
       <Hero />
-      <div className="mx-auto w-full max-w-3xl px-6">
+      <div className="mx-auto w-full max-w-6xl px-[clamp(24px,4.5vw,56px)]">
         <About />
         <Skills />
         <Projects />
@@ -28,8 +28,11 @@ export default function Home() {
         <Education />
         <Certifications />
         <Contact />
-        <footer className="border-t py-10 font-mono text-xs text-muted-foreground">
-          © {new Date().getFullYear()} {profile.name}
+        <footer className="flex flex-wrap justify-between gap-2 border-t py-10 font-mono text-xs text-muted-foreground">
+          <span>
+            © {new Date().getFullYear()} {profile.name}
+          </span>
+          <span>{profile.location}</span>
         </footer>
       </div>
     </main>

@@ -1,5 +1,6 @@
 import { hero } from "@/app/data/hero";
 import { profile } from "@/app/data/profile";
+import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -67,12 +68,14 @@ export function Hero() {
             </a>
           ))}
         </nav>
-        <a
-          href="#contact"
-          className="border-b border-foreground pb-0.5 text-sm font-medium whitespace-nowrap"
+        <Button
+          size="sm"
+          className="rounded-full px-4"
+          nativeButton={false}
+          render={<a href="#contact" />}
         >
           Book a call ↗
-        </a>
+        </Button>
       </header>
 
       <section
@@ -100,22 +103,37 @@ export function Hero() {
         </ul>
 
         <div className="relative z-10">
-          <h1 className="sr-only">
-            {profile.name} — {hero.rail}
+          <h1 className="font-[520] tracking-[-0.04em]">
+            <span className="block text-[clamp(40px,5.8vw,86px)] leading-[1.02]">
+              {hero.greeting}
+            </span>
+            <span className="mt-[0.35em] block text-[clamp(24px,3vw,44px)] leading-[1.15]">
+              {hero.expertise.map((segment) => (
+                <span
+                  key={segment.text}
+                  className={segment.muted ? "text-muted-foreground" : undefined}
+                >
+                  {segment.text}
+                </span>
+              ))}
+            </span>
           </h1>
-          <p
-            aria-hidden
-            className="text-[clamp(88px,15vw,210px)] leading-[0.88] font-[520] tracking-[-0.05em]"
-          >
-            {hero.greeting}
+          <p className="mt-[clamp(16px,2.4vh,26px)] max-w-[44ch] text-[clamp(14px,1.3vw,17px)] text-muted-foreground">
+            {hero.support}
           </p>
-          <p className="mt-[clamp(16px,2.4vh,26px)] ml-1.5 max-w-[40ch] text-[clamp(14px,1.3vw,17px)] text-muted-foreground">
-            — <b className="font-semibold text-foreground">{hero.introLead}</b>{" "}
-            {hero.introRest}
-          </p>
+          <div className="mt-[clamp(24px,4vh,40px)]">
+            <Button
+              size="lg"
+              className="rounded-full px-6"
+              nativeButton={false}
+              render={<a href="#contact" />}
+            >
+              Book a call ↗
+            </Button>
+          </div>
         </div>
 
-        <p className="relative z-10 mt-[clamp(36px,8vh,84px)] mb-7 ml-1.5 text-[13px] text-muted-foreground">
+        <p className="relative z-10 mt-[clamp(36px,8vh,84px)] mb-7 text-[13px] text-muted-foreground">
           Scroll down ↓
         </p>
       </section>

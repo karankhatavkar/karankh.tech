@@ -29,8 +29,8 @@ Positioning shift baked into the design: **RAG expert first, agentic AI second**
 1. **Nav** — name left; `About · Projects · Experience · Notes` center; `Book a call ↗` right. ("Notes" appears only once the blog ships.)
 2. **Stats row** — honest, content-driven: `3+ years in ML` · `1 RAG in production` · `7 open-source projects`. Update as facts change.
 3. **Vertical rail** (left edge, mono, rotated) — `RAG & AGENTIC AI ENGINEER`, hairline rule, `2026`.
-4. **Greeting** — oversized `Hello` (tight tracking ~ -0.05em, medium weight, line-height ~0.9).
-5. **Intro line** — `— It's Karan. I build RAG systems and AI agents that hold up in production.`
+4. **Two-deck display** (revised Jul 13, 2026 — replaces the bare `Hello`; the greeting alone carried no information and buried the name and positioning): deck 1 `Hey, I'm Karan.` (display size), deck 2 at ~45% scale `I build RAG systems & AI agents.` with the key terms in full ink and connective words muted. Both decks are the real `<h1>`.
+5. **Support line** (Karan's own wording — copy here should sound like him, not like AI-generated feature triads) — `— focused on moving RAG from concept to robust, verifiable production tech.` Followed by the pill `Book a call ↗` CTA (pills are reserved site-wide for this one action: nav, hero, contact finale).
 6. **Twin message bar** — directly below the intro line: pill-shaped input, green "online" dot, placeholder `Ask my twin — RAG work, agents, availability…`, dark circular send button. Mono microcopy beneath: `beta — answers from this site's content`. Candidate components: `input-group`, `button`, and (for answers) `message`/`bubble` — already installed.
 7. **Scroll cue** — `Scroll down ↓`.
 8. **Portrait** — absolute right, full hero height, ~42% width, B&W, backdrop blended into the page ground.
