@@ -1,11 +1,11 @@
-import { Hero } from "@/app/components/sections/Hero";
-import { About } from "@/app/components/sections/About";
-import { Skills } from "@/app/components/sections/Skills";
-import { Projects } from "@/app/components/sections/Projects";
-import { Experience } from "@/app/components/sections/Experience";
-import { Education } from "@/app/components/sections/Education";
-import { Certifications } from "@/app/components/sections/Certifications";
-import { Contact } from "@/app/components/sections/Contact";
+import { Hero } from "@/components/sections/hero";
+import { About } from "@/components/sections/about";
+import { Skills } from "@/components/sections/skills";
+import { Projects } from "@/components/sections/projects";
+import { Experience } from "@/components/sections/experience";
+import { Education } from "@/components/sections/education";
+import { Certifications } from "@/components/sections/certifications";
+import { Contact } from "@/components/sections/contact";
 import { profile } from "@/app/data/profile";
 import { structuredData } from "@/app/data/structured-data";
 
@@ -27,7 +27,7 @@ export default function Home() {
       <Education />
       <Certifications />
       <Contact />
-      <footer className="border-t border-white/10 py-10 font-mono text-xs text-zinc-600">
+      <footer className="border-t py-10 font-mono text-xs text-muted-foreground">
         © {new Date().getFullYear()} {profile.name}
       </footer>
     </main>

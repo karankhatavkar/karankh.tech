@@ -1,6 +1,6 @@
 # DESIGN.md — karankh.tech design base
 
-Locked **July 13, 2026** (rev 3.1). This is the design source of truth for the Phase 2 redesign; [PROJECT.md](./PROJECT.md) defers to it for visual/design decisions. Details will be refined during the build, but the base below does not change without a deliberate decision.
+**July 13, 2026** (rev 3.1). This is the design sample for the Phase 2 redesign; [PROJECT.md](./PROJECT.md) defers to it for visual/design decisions. Details will be refined during the build.
 
 **Live mock:** [`design/hero-mock.html`](./design/hero-mock.html) — open in a browser. The hero section of that file *is* the target design; everything below it is spec notes.
 

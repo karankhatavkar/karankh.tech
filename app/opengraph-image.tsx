@@ -6,8 +6,8 @@ export const alt =
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Share card mirroring the site's premium-minimal look: near-black canvas,
-// soft radial glow, hairline frame, typography-led monochrome hierarchy.
+// Share card mirroring the site's shadcn neutral light theme: white canvas,
+// hairline frame, typography-led monochrome hierarchy.
 export default function OpenGraphImage() {
   return new ImageResponse(
     (
@@ -19,9 +19,9 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 84,
-          backgroundColor: "#050505",
+          backgroundColor: "#ffffff",
           backgroundImage:
-            "radial-gradient(circle at 22% 12%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 55%)",
+            "radial-gradient(circle at 22% 12%, rgba(10,10,10,0.04) 0%, rgba(10,10,10,0) 55%)",
         }}
       >
         <div
@@ -32,7 +32,7 @@ export default function OpenGraphImage() {
             right: 28,
             bottom: 28,
             display: "flex",
-            border: "1px solid rgba(255,255,255,0.14)",
+            border: "1px solid #e5e5e5",
             borderRadius: 20,
           }}
         />
@@ -41,7 +41,7 @@ export default function OpenGraphImage() {
             display: "flex",
             fontSize: 22,
             letterSpacing: 6,
-            color: "#71717a",
+            color: "#737373",
           }}
         >
           {profile.role.toUpperCase()}
@@ -54,7 +54,7 @@ export default function OpenGraphImage() {
               fontWeight: 700,
               letterSpacing: -3,
               lineHeight: 1.05,
-              color: "#fafafa",
+              color: "#0a0a0a",
             }}
           >
             {profile.name}
@@ -65,7 +65,7 @@ export default function OpenGraphImage() {
               marginTop: 26,
               fontSize: 32,
               lineHeight: 1.3,
-              color: "#a1a1aa",
+              color: "#525252",
             }}
           >
             {profile.tagline}
@@ -79,16 +79,16 @@ export default function OpenGraphImage() {
             fontSize: 24,
           }}
         >
-          <div style={{ display: "flex", color: "#e4e4e7" }}>karankh.tech</div>
+          <div style={{ display: "flex", color: "#0a0a0a" }}>karankh.tech</div>
           <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-            <div style={{ display: "flex", color: "#71717a" }}>
+            <div style={{ display: "flex", color: "#737373" }}>
               Open to freelance &amp; contract
             </div>
             <div
               style={{
                 display: "flex",
-                backgroundColor: "#fafafa",
-                color: "#050505",
+                backgroundColor: "#171717",
+                color: "#fafafa",
                 borderRadius: 999,
                 padding: "14px 30px",
                 fontSize: 24,

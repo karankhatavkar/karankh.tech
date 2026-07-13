@@ -1,10 +1,10 @@
 import { profile } from "@/app/data/profile";
-import { Section } from "@/app/components/ui/Section";
+import { Section } from "@/components/sections/section";
 
 export function Contact() {
   return (
     <Section id="contact" title="Contact">
-      <p className="max-w-2xl text-lg leading-relaxed text-zinc-300">
+      <p className="max-w-2xl text-lg leading-relaxed">
         Open to freelance and contract work in LLM, NLP, and ML. Reach out and
         let&apos;s talk.
       </p>
@@ -12,7 +12,7 @@ export function Contact() {
         <li>
           <a
             href={`mailto:${profile.email}`}
-            className="text-zinc-200 underline-offset-4 hover:underline"
+            className="underline-offset-4 hover:underline"
           >
             {profile.email}
           </a>
@@ -23,7 +23,7 @@ export function Contact() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-200 underline-offset-4 hover:underline"
+              className="underline-offset-4 hover:underline"
             >
               {social.label}
             </a>
@@ -32,7 +32,7 @@ export function Contact() {
         <li>
           <a
             href={profile.resumeHref}
-            className="text-zinc-200 underline-offset-4 hover:underline"
+            className="underline-offset-4 hover:underline"
           >
             Download résumé (PDF)
           </a>

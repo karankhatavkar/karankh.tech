@@ -29,7 +29,7 @@ export default async function Icon({ id }: { id: Promise<string | number> }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#050505",
+          backgroundColor: "#171717",
           borderRadius: Math.round(width * 0.19),
           color: "#fafafa",
           fontSize: Math.round(width * 0.62),

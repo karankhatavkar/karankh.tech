@@ -9,11 +9,11 @@ export function Section({ id, title, children }: SectionProps) {
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className="border-t border-white/10 py-16"
+      className="border-t py-16"
     >
       <h2
         id={`${id}-heading`}
-        className="mb-8 font-mono text-sm uppercase tracking-widest text-zinc-500"
+        className="mb-8 font-mono text-sm uppercase tracking-widest text-muted-foreground"
       >
         {title}
       </h2>
