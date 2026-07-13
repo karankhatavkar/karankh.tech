@@ -14,7 +14,7 @@ Personal portfolio for **Karan Khatavkar**, hosted at **karankh.tech**. This doc
 
 One route (`app/page.tsx`) with anchored sections, in order:
 
-1. **Hero** — name, role, tagline, primary CTA. Typography-led, **no profile photo**. This is the showpiece — make it cinematic.
+1. **Hero** — reference-layout hero (see [DESIGN.md](./DESIGN.md)): nav, stats row, vertical role rail, oversized "Hello" greeting + one-line RAG-first intro, **twin message bar**, scroll cue, and a B&W portrait bleeding off the right edge. This is the showpiece.
 2. **About** — short bio + availability for freelance/contract.
 3. **Skills / Stack** — grouped (LLM & GenAI · ML & Deep Learning · Serving & Infra · Languages).
 4. **Projects** — all projects (see §6), LLM/agent work first.
@@ -25,16 +25,15 @@ One route (`app/page.tsx`) with anchored sections, in order:
 
 A sticky/section nav with smooth-scroll and scroll-spy is encouraged.
 
-## 3. Design system — "premium minimalism"
+## 3. Design system — "light editorial" (revised Jul 13, 2026)
 
-The site should feel **fancy and high-craft**, not a basic template — distinctive enough to be memorable, while staying clean.
+> **Superseded the original dark spec.** Full detail, tokens, and the live hero mock live in [DESIGN.md](./DESIGN.md) + [`design/hero-mock.html`](./design/hero-mock.html) — that is the design source of truth.
 
-- **Theme:** dark only — near-black canvas with layered grays.
-- **Palette:** monochrome + white. **No color accent**; differentiation comes from contrast, weight, and depth, not hue.
-- **Typography-driven:** large, confident type as the primary design element. Geist Sans / Geist Mono (already wired via `next/font/google`). Use a deliberate type scale, mono for labels/metadata for an engineering feel.
-- **Motion & interaction (this is what makes it "fancy"):** scroll-triggered reveals, subtle parallax/depth, magnetic or animated hero, hover micro-interactions on projects/links, smooth section transitions. Tasteful and performant — never gratuitous. Respect `prefers-reduced-motion`.
-- **Depth & texture within monochrome:** subtle grain/noise, soft radial gradients, fine hairline borders, layered cards — to add richness without color.
-- **No imagery of the person.** Visual interest comes from type, motion, spacing, and structure.
+- **Theme:** light only — warm-gray paper ground (`#F0EFED`, not pure white), near-black ink.
+- **Palette:** monochrome; **no decorative accent**. One semantic green (`#2E7D46`) strictly for availability / twin-online status.
+- **Typography:** one grotesque carries the site (reference face: Aeonik, commercial; free stand-in: Instrument Sans via `next/font`) + Geist Mono for rails/labels/metadata.
+- **Photography:** one monochrome B&W portrait of Karan, backdrop matched to the page ground so it blends (shoot spec in DESIGN.md). *Reverses the earlier "no imagery of the person" rule.*
+- **Motion:** tasteful and performant — scroll reveals, hover micro-interactions; respect `prefers-reduced-motion`.
 - Fully responsive; accessible (semantic landmarks, keyboard-navigable, sufficient contrast, reduced-motion fallback).
 
 > When building the UI, use the `frontend-design` skill for distinctive, production-grade output — avoid generic AI aesthetics.
@@ -50,6 +49,7 @@ The site should feel **fancy and high-craft**, not a basic template — distinct
 
 ## 5. Functional requirements
 
+- **Twin message bar** in the hero (see DESIGN.md). At launch: curated Q&A answered from the page's own content with deep links to sections, honestly labeled "beta". Later phase: live digital twin (RAG over site/résumé/repos) behind the same UI.
 - **Contact form + direct contact.** Form UI built now; **email-delivery backend deferred** — wire a placeholder handler and choose the service (Resend vs Formspree/Web3Forms) before launch. Show email + LinkedIn + GitHub alongside the form.
 - **Résumé download** — link to the PDF in `public/`.
 - **SEO/meta** — replace the scaffold's "Create Next App" metadata: real `<title>`, description, Open Graph + Twitter tags, OG image, sitemap, robots, canonical `https://karankh.tech`.
@@ -59,9 +59,9 @@ The site should feel **fancy and high-craft**, not a basic template — distinct
 
 ### Identity
 - **Name:** Karan Khatavkar
-- **Role:** AI/ML Engineer — LLM, NLP & Deep Learning
-- **Tagline:** "Building LLM apps, agents, and ML models for clients."
-- **Bio:** Builds LLM systems for clients — agents, RAG pipelines, and fine-tuned NLP — backed by a deep-learning background in signals and imaging. Available for freelance and contract work.
+- **Role:** RAG & Agentic AI Engineer *(revised Jul 13, 2026 — RAG expert first, agents second; replaces the generic "AI/ML Engineer" framing in copy, section order, and SEO)*
+- **Tagline:** "I build RAG systems and AI agents that hold up in production."
+- **Bio:** Builds RAG systems and AI agents for clients — retrieval pipelines, evals, and fine-tuned NLP — backed by a deep-learning background in signals and imaging. Available for freelance and contract work.
 - **Location:** Pune, India
 
 ### Contact (public)
@@ -114,14 +114,15 @@ The site should feel **fancy and high-craft**, not a basic template — distinct
 
 - Contact-form delivery backend (Resend vs Formspree/Web3Forms) — choose before launch.
 - Animation library/approach — decide at build time.
-- Design reference sites: none provided → follow "premium minimalism, dark, monochrome."
-- OG/share image design.
+- Typeface: license Aeonik vs free stand-in Instrument Sans (see DESIGN.md).
+- Portrait shoot per the spec in DESIGN.md (build proceeds with placeholder until then).
+- OG/share image design — regenerate in the light style.
 - **Publication (MixVal, under review 2026)** — intentionally omitted for now; add later.
 
 ## 9. Out of scope (v1)
 
-- Blog / writing section.
+- Blog / writing section ("Notes" — planned later phase; nav slot reserved).
 - CMS or MDX content pipeline.
-- Light theme / theme toggle.
-- Profile photography.
+- Dark theme / theme toggle (site is light-only now).
+- Live LLM-backed digital twin (later phase; launch ships the curated-Q&A message bar).
 - Multi-language (i18n).
