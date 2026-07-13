@@ -11,10 +11,10 @@ This project runs **Next.js 16** (`next@^16.2.9`) with **React 19.2** and the Ap
 ## Commands
 
 ```bash
-npm run dev      # start dev server at http://localhost:3000
-npm run build    # production build
-npm run start    # serve the production build
-npm run lint     # ESLint (flat config, eslint-config-next)
+pnpm dev      # start dev server at http://localhost:3000
+pnpm build    # production build
+pnpm start    # serve the production build
+pnpm lint     # ESLint (flat config, eslint-config-next)
 ```
 
 There is no test runner configured yet.
