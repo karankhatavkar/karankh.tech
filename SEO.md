@@ -39,7 +39,7 @@ Everything is statically prerendered (`npm run build` shows all routes `○/●`
 2. **Bing Webmaster Tools** — import the verified GSC property (one click). Bing powers ChatGPT's web search — worth the five minutes.
 3. **Backlinks from your own profiles** (the highest-leverage off-site action):
    - LinkedIn → add `https://karankh.tech` as the profile Website and in the About section.
-   - GitHub → set the profile website field ✅ *(done)* + a direct link in the profile README *(pending — see the GitHub link plan below)*.
+   - GitHub → set the profile website field ✅ *(done)* + per-repo README author links ✅ *(done — see the GitHub link plan below; profile README skipped intentionally)*.
    - These reciprocate the site's `sameAs` links, letting Google/AI engines reconcile the entity from both directions.
 4. **Validate after deploy:**
    - Structured data: [Rich Results Test](https://search.google.com/test/rich-results) and [validator.schema.org](https://validator.schema.org/)
@@ -64,25 +64,25 @@ Built by **[Karan Khatavkar](https://karankh.tech)** — AI/ML engineer (LLM, RA
 > Built by [Karan Khatavkar](https://karankh.tech) — AI/ML engineer, open to freelance & contract work.
 ```
 
-| Repo | Template | Placement |
-|---|---|---|
-| `edgarbrief` | Author section + one-liner | Section at the very end; one-liner under the intro, before "The problem" |
-| `founders-court` | Author section | Between "Trust and safety" and "License" |
-| `biobert-medical-ner` | Author section | After "Notes" |
-| `alzheimer-eeg-classification` | Author section | Above "License" |
-| `variational-autoencoders-image-restoration` | Author section | End, after dataset list |
-| `ak47-acoustic-rul` | Author section | End, after Models table |
-| `predictive-maintenance-bearing-tool-wear` | Author section | End, after dataset list |
-| `premarket-brief` | Author section | End, after "Disclaimer" |
-| `customer-churn-ann` | Author section | End, after Notebooks table |
-| `diabetes-prediction-system` | Author section | Above "License" (add to its ToC) |
-| `spam-email-classification` | Author section | Above "License" (add to its ToC) |
-| `Cloud-Based-Inter-College-Announcement-System` | Author section | Above "License" |
-| `mini-xVal` | One-liner | Under the intro paragraph |
-| `denoising-data` | One-liner | At the end |
-| `dtmf-robot` | One-liner | At the end |
-| `karankhatavkar` (profile README) | Custom | Prominent link under the headline: `🌐 **[karankh.tech](https://karankh.tech)** — portfolio & contact` (currently only the edgarbrief subdomain is linked) |
-| `karankh.tech` (this repo) | — | ✅ Done — branded README with site link replaces the create-next-app stub |
+| Repo | Template | Placement | Status |
+|---|---|---|---|
+| `edgarbrief` | Author section + one-liner | Section at the very end; one-liner under the intro, before "The problem" | ✅ Done |
+| `founders-court` | Author section | Between "Trust and safety" and "License" | ✅ Done |
+| `biobert-medical-ner` | Author section | After "Notes" | ✅ Done |
+| `alzheimer-eeg-classification` | Author section | Above "License" | ✅ Done |
+| `variational-autoencoders-image-restoration` | Author section | End, after dataset list | ✅ Done |
+| `ak47-acoustic-rul` | Author section | End, after Models table | ✅ Done |
+| `predictive-maintenance-bearing-tool-wear` | Author section | End, after dataset list | ✅ Done |
+| `premarket-brief` | Author section | End, after "Disclaimer" | ✅ Done |
+| `customer-churn-ann` | Author section | End, after Notebooks table | ✅ Done |
+| `diabetes-prediction-system` | Author section | Above "License" (add to its ToC) | ✅ Done |
+| `spam-email-classification` | Author section | Above "License" (add to its ToC) | ✅ Done |
+| `Cloud-Based-Inter-College-Announcement-System` | Author section | Above "License" | ✅ Done |
+| `mini-xVal` | One-liner | Under the intro paragraph | ✅ Done |
+| `denoising-data` | One-liner | At the end | ✅ Done |
+| `dtmf-robot` | One-liner | At the end | ✅ Done |
+| `karankhatavkar` (profile README) | Custom | Prominent link under the headline: `🌐 **[karankh.tech](https://karankh.tech)** — portfolio & contact` | ⏭️ Skipped by choice — the profile README links out to the Upwork profile, and adding more promotional/portfolio content there risks flagging Upwork's ToS on off-platform solicitation |
+| `karankh.tech` (this repo) | — | ✅ Done — branded README with site link replaces the create-next-app stub | ✅ Done |
 
 ## Future levers (when ready to invest more)
 
