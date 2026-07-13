@@ -7,10 +7,10 @@ Single-page, dark, typography-led site. Built with Next.js 16 (App Router), Reac
 ## Develop
 
 ```bash
-npm run dev      # dev server at http://localhost:3000
-npm run build    # production build
-npm run start    # serve the production build
-npm run lint     # ESLint
+pnpm dev      # dev server at http://localhost:3000
+pnpm build    # production build
+pnpm start    # serve the production build
+pnpm lint     # ESLint
 ```
 
 ## Docs
