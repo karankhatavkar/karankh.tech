@@ -11,7 +11,7 @@ import { structuredData } from "@/app/data/structured-data";
 
 export default function Home() {
   return (
-    <main className="mx-auto w-full max-w-3xl px-6">
+    <main className="w-full">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -20,16 +20,18 @@ export default function Home() {
         }}
       />
       <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Education />
-      <Certifications />
-      <Contact />
-      <footer className="border-t py-10 font-mono text-xs text-muted-foreground">
-        © {new Date().getFullYear()} {profile.name}
-      </footer>
+      <div className="mx-auto w-full max-w-3xl px-6">
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Education />
+        <Certifications />
+        <Contact />
+        <footer className="border-t py-10 font-mono text-xs text-muted-foreground">
+          © {new Date().getFullYear()} {profile.name}
+        </footer>
+      </div>
     </main>
   );
 }
