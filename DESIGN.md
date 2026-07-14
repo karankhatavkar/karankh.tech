@@ -1,6 +1,6 @@
 # DESIGN.md — karankh.tech design base
 
-**July 13, 2026** (rev 4). Design sample/reference for the phased redesign; [PROJECT.md](./PROJECT.md) defers to it for visual/design decisions. This doc is a template, not a lock — **each step is discussed with Karan and built one by one.**
+**July 14, 2026** (rev 5). Design sample/reference for the phased redesign; [PROJECT.md](./PROJECT.md) defers to it for visual/design decisions. This doc is a template, not a lock — **each step is discussed with Karan and built one by one.**
 
 **Live mock:** [`design/hero-mock.html`](./design/hero-mock.html) — open in a browser. The hero *composition* of that file is the target for the hero step; its hardcoded hex palette is superseded by the shadcn theme (below).
 
@@ -17,6 +17,7 @@ pnpm dlx shadcn@latest init --preset bIkf4u8 --template next
 - Page sections composing them live in `components/sections/`; content stays in typed TS under `app/data/`.
 - Theme = neutral oklch CSS variables in `app/globals.css`. **Light is the default**; a `.dark` token set ships with the preset but no toggle is wired (decision pending, see below).
 - Rule: style with **semantic tokens only** (`bg-background`, `text-foreground`, `text-muted-foreground`, `bg-card`, `border-border`, `bg-primary`…). No raw hex, no one-off palettes in components.
+- Rule (Karan, Jul 14, 2026): **pending-content placeholders use the shadcn `Empty` component** (dashed border, `EmptyMedia` icon, mono caption) — no hand-drawn CSS effects with raw color values. (The hero's older raw-rgba silhouette placeholder predates this rule and is a candidate for the same treatment.)
 
 ## Direction
 
@@ -72,9 +73,23 @@ Changing the theme later = swapping the preset variables in `app/globals.css`; c
 - **Phase 3 (digital twin):** same UI, live brain — RAG over the site content, résumé, and repos; streaming answers with source chips. Green dot = twin online.
 - Fully keyboard-accessible; the bar is a real `<form>` from day one.
 
-## Below the fold — current state (rebuilt on shadcn, Jul 13, 2026)
+## Page frame (settled Jul 14, 2026)
 
-About → Skills (`Badge`) → Projects (featured `Card` with retrieval-pipeline badges + project-card grid) → Experience → Education → Certifications → Contact → footer. All on semantic tokens with the same content as before. Section order/refinement (RAG & GenAI first, quiet list with big hover previews, etc.) happens per-step during the build. Semantic landmarks, keyboard navigation, `prefers-reduced-motion` fallbacks throughout.
+Scroll sections share the hero text's inset on **both sides**: full-width container with `px-[clamp(64px,7vw,110px)]` in `app/page.tsx`, no max-width. Karan rejected a centered `max-w-6xl` box ("very centric, blank space on sides, doesn't match the first page") and an asymmetric left-only alignment. Result: "About me", every section label, and the footer start exactly under "Hey, I'm", mirrored on the right.
+
+## About section (built Jul 14, 2026 — from a bento reference Karan supplied)
+
+Custom full-width composition in `components/sections/about.tsx` (deliberately **not** the shared sticky-label `Section` wrapper — About is the showcase moment right after the hero); copy in `app/data/about.ts`. Three-column bento at `lg` (`1.1fr / 0.85fr / 1fr`), two columns at `sm`, stacked on mobile:
+
+1. **Text column** — display `About me` h2, niche intro (chunking / retrieval quality / evals), green-dot availability line, and **social handles** (mono `LABEL @handle ↗` lines, driven by `profile.socials` — same source as Contact; the `@handle` derives from each URL's last path segment).
+2. **Anchor column** — stat `Card`: the grounding **standard, not a marketing metric** (`100%` / "of answers grounded in retrieved, citable sources"); below it the portrait slot (`Empty`, `aspect-[4/5] max-h-[540px]`) awaiting the B&W shoot.
+3. **Proof column** — `OPEN SOURCE` link tile (whole card clickable to GitHub) + two `+`-marker working-style points.
+
+Dropped from the reference: the hand-drawn arrow doodle (off-voice) and its second photo (single portrait slot until the shoot). Body copy scales `15→17px` with a vw clamp for wide screens.
+
+## Below the fold — current state
+
+About (above) → Skills (`Badge`) → Projects (featured `Card` with retrieval-pipeline badges + project-card grid) → Experience → Education → Certifications → Contact → footer. All on semantic tokens. Section order/refinement (RAG & GenAI first, quiet list with big hover previews, etc.) happens per-step during the build; sections after About still use the sticky mono-label `Section` wrapper. Semantic landmarks, keyboard navigation, `prefers-reduced-motion` fallbacks throughout.
 
 ## SEO implications
 

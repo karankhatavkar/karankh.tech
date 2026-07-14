@@ -15,7 +15,7 @@ Personal portfolio for **Karan Khatavkar**, hosted at **karankh.tech**. This doc
 One route (`app/page.tsx`) with anchored sections, in order:
 
 1. **Hero** — reference-layout hero (see [DESIGN.md](./DESIGN.md)): nav, stats row, vertical role rail, oversized "Hello" greeting + one-line RAG-first intro, **twin message bar**, scroll cue, and a B&W portrait bleeding off the right edge. This is the showpiece.
-2. **About** — short bio + availability for freelance/contract.
+2. **About** — bento composition from a user-supplied reference (built Jul 14, 2026, see DESIGN.md): niche bio + availability + social handles, a grounding-standard stat card (`100%` grounded answers), portrait slot (B&W shoot pending), open-source proof tile, and two working-style points.
 3. **Skills / Stack** — grouped (LLM & GenAI · ML & Deep Learning · Serving & Infra · Languages).
 4. **Projects** — all projects (see §6), LLM/agent work first.
 5. **Experience** — roles + highlights.

@@ -20,7 +20,10 @@ export default function Home() {
         }}
       />
       <Hero />
-      <div className="mx-auto w-full max-w-6xl px-[clamp(24px,4.5vw,56px)]">
+      {/* Sections share the hero text's left inset (its pl clears the
+          vertical rail) so "About me" starts exactly under "Hey, I'm",
+          mirrored on the right so the content block stays symmetric. */}
+      <div className="w-full px-[clamp(64px,7vw,110px)]">
         <About />
         <Skills />
         <Projects />
