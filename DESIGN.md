@@ -95,9 +95,28 @@ Social handles with real logos, in the About text column. shadcn `ItemGroup`/`It
 
 Dropped from the reference: the hand-drawn arrow doodle (off-voice) and its second photo (single portrait slot until the shoot). Body copy scales `15→17px` with a vw clamp for wide screens.
 
+## Slide mode — the page as a deck (built Jul 19, 2026, from Karan's brief)
+
+On a laptop the page scrolls one screen at a time: a wheel flick advances exactly one section, like slides. On a phone it is the plain continuous page it always was. **No scroll hijacking** — this is native CSS scroll-snap, so trackpad momentum, the scrollbar, `Page Down`, `Home`/`End`, find-in-page and deep links all behave normally, and there is no JS in the scroll path.
+
+**One gate, defined once.** `@custom-variant slides` in `app/globals.css` is `(width >= 64rem) and (height >= 44rem)`; the snap rules and every `slides:` utility sit behind it, so the layout and the snapping can never disagree. The 44rem floor is measured, not guessed — below it the About and Projects slides stop fitting a screen, which is where a deck stops being worth it, so those windows fall back to the continuous page.
+
+- `scroll-snap-type: y mandatory` on `html`; `scroll-snap-align: start` + `scroll-snap-stop: always` on `[data-slide]`. `stop: always` is what makes one flick move one slide instead of coasting past several.
+- `components/sections/slide.tsx` wraps each section: `min-h-svh` (never `h-`, so a slide grows rather than clipping) and the shared frame inset. Sections drop their `border-t` and rhythm padding in slide mode — the screen change *is* the separation.
+- `prefers-reduced-motion: reduce` drops `scroll-behavior: smooth` to `auto`, so the deck steps rather than glides.
+
+**The rail** (`components/slide-rail.tsx`) — the hero's vertical rail promoted to the spine of the deck. It holds the current slide's name at the top, `2026` at the bottom, and between them the hero's hairline broken into one segment per slide, inked on the one you are standing on. Quantised scrolling hides how much page is left, so the rail is where that information goes; it is also the only navigation once the hero's header scrolls away. Segments are anchors, so it is keyboard-navigable. Slide mode only — the hero renders its own local rail below the gate.
+
+**Deck order** lives in `app/data/slides.ts` and drives both the page and the rail. Two composition changes fell out of making every section fit a screen, and both stand on their own merits:
+
+1. **Projects split in two** — the featured build (`#projects`) holds a screen alone, the rest of the work follows as `#more-projects`. The featured RAG system carries the whole pitch; it should not share a screen.
+2. **Education + Certifications share one screen** — three certification lines in a 900px void did not earn a slide. Both sections keep their own ids, so `#certifications` still resolves.
+
+Verified in headless Chrome at 1280×704, 1440×900 and 1512×800: every slide is exactly one viewport, no overflow. At 390×844 and 768×1024 snapping is `none` and the rail is `display: none`.
+
 ## Below the fold — current state
 
-About (above) → Skills (`Badge`) → Projects (featured `Card` with retrieval-pipeline badges + project-card grid) → Experience → Education → Certifications → Contact → footer. All on semantic tokens. Section order/refinement (RAG & GenAI first, quiet list with big hover previews, etc.) happens per-step during the build; sections after About still use the sticky mono-label `Section` wrapper. Semantic landmarks, keyboard navigation, `prefers-reduced-motion` fallbacks throughout.
+About (above) → Skills (`Badge`) → Projects (featured `Card` with retrieval-pipeline badges) → More projects (list) → Experience → Education + Certifications → Contact → footer. All on semantic tokens. Section order/refinement (RAG & GenAI first, quiet list with big hover previews, etc.) happens per-step during the build; sections after About still use the sticky mono-label `Section` wrapper. Semantic landmarks, keyboard navigation, `prefers-reduced-motion` fallbacks throughout.
 
 ## SEO implications
 

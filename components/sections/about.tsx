@@ -117,7 +117,7 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="grid gap-10 border-t py-16 sm:grid-cols-2 sm:py-20 lg:grid-cols-[1.1fr_0.85fr_1fr] lg:gap-12 xl:gap-16"
+      className="grid gap-10 border-t py-16 sm:grid-cols-2 sm:py-20 lg:grid-cols-[1.1fr_0.85fr_1fr] lg:gap-12 xl:gap-16 slides:border-t-0 slides:py-0"
     >
       <div className="flex flex-col sm:col-span-2 lg:col-span-1">
         <h2

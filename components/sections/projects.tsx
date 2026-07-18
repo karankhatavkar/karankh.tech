@@ -85,7 +85,7 @@ function FeaturedProjectCard() {
           ))}
         </dl>
 
-        <p className="mt-7 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <p className="mt-7 font-mono text-xs uppercase tracking-wider text-muted-foreground slides:mt-[clamp(16px,2.6vh,28px)]">
           {featuredProject.tech.join(" · ")}
         </p>
       </CardContent>
@@ -121,19 +121,31 @@ function FeaturedProjectCard() {
   );
 }
 
+// The featured build carries the whole pitch — hybrid retrieval in, cited
+// answer out — and it is the one thing a hiring reader should leave with, so
+// it holds a screen on its own and the rest of the work follows.
 export function Projects() {
   return (
     <Section id="projects" title="Projects">
       <FeaturedProjectCard />
+    </Section>
+  );
+}
 
-      <ul className="mt-6 divide-y">
+// In slide mode the row rhythm tracks the viewport height, so the full list
+// lands on one screen on a short laptop as well as a tall one instead of
+// losing its last row off the bottom edge.
+export function MoreProjects() {
+  return (
+    <Section id="more-projects" title="More projects">
+      <ul className="divide-y">
         {projects.map((project) => (
           <li key={project.name}>
             <a
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group grid gap-x-8 gap-y-1 py-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50 sm:grid-cols-[1fr_auto] sm:items-baseline"
+              className="group grid gap-x-8 gap-y-1 py-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50 sm:grid-cols-[1fr_auto] sm:items-baseline slides:py-[clamp(14px,2.4vh,24px)]"
             >
               <div className="min-w-0">
                 <span className="flex items-baseline gap-2 text-lg font-medium">

@@ -8,7 +8,7 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="border-t py-24 sm:py-32"
+      className="border-t py-24 sm:py-32 slides:border-t-0 slides:py-0"
     >
       <p className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.28em] text-muted-foreground">
         <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden />

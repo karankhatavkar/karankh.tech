@@ -83,7 +83,9 @@ export function Hero() {
         aria-label="Introduction"
         className="relative flex flex-1 flex-col justify-center pr-[clamp(24px,4.5vw,56px)] pl-[clamp(64px,7vw,110px)]"
       >
-        <div className="absolute inset-y-0 left-[clamp(18px,2.4vw,34px)] z-10 flex flex-col items-center justify-between py-6">
+        {/* In slide mode the fixed SlideRail takes over this rail's job for
+            the whole deck, so the hero drops its local copy. */}
+        <div className="absolute inset-y-0 left-[clamp(18px,2.4vw,34px)] z-10 flex flex-col items-center justify-between py-6 slides:hidden">
           <span className={railText}>{hero.rail}</span>
           <span className="my-4 w-px flex-1 bg-border" aria-hidden />
           <span className={railText}>{hero.year}</span>

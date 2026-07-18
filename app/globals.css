@@ -4,6 +4,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Slide mode: the page reads as a deck — one screen per section, scroll
+   snapped. Gated to laptop-sized viewports that are also tall enough to hold
+   a slide; phones and short windows keep the plain continuous scroll. The
+   44rem floor is measured, not guessed: below it the About and Projects
+   slides stop fitting a screen, which is the point where a deck stops being
+   worth it. This variant is the single definition of "slide mode" — the snap
+   rules below and every `slides:` utility in the components sit behind it, so
+   the layout and the snapping can never disagree. */
+@custom-variant slides (@media (width >= 64rem) and (height >= 44rem));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -50,6 +60,28 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (width >= 64rem) and (height >= 44rem) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+
+  /* `stop: always` is what makes one wheel flick advance exactly one slide
+     instead of coasting past several. A slide taller than the viewport (a
+     long Projects list, say) is exempt from snapping by the spec for as long
+     as it fills the screen, so it scrolls through normally and re-snaps at
+     the next slide — no content is ever trapped. */
+  [data-slide] {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 :root {
