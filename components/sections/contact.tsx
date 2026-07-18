@@ -41,18 +41,22 @@ export function Contact() {
         </a>
       </div>
       <ul className="mt-14 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-wider">
-        {profile.socials.map((social) => (
-          <li key={social.label}>
-            <a
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {social.label} ↗
-            </a>
-          </li>
-        ))}
+        {/* Email is in profile.socials for the About block; here it would
+            duplicate the prominent mailto link directly above. */}
+        {profile.socials
+          .filter((social) => !social.href.startsWith("mailto:"))
+          .map((social) => (
+            <li key={social.label}>
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {social.label} ↗
+              </a>
+            </li>
+          ))}
         <li>
           <a
             href={profile.resumeHref}

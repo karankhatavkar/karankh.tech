@@ -81,9 +81,17 @@ Scroll sections share the hero text's inset on **both sides**: full-width contai
 
 Custom full-width composition in `components/sections/about.tsx` (deliberately **not** the shared sticky-label `Section` wrapper — About is the showcase moment right after the hero); copy in `app/data/about.ts`. Three-column bento at `lg` (`1.1fr / 0.85fr / 1fr`), two columns at `sm`, stacked on mobile:
 
-1. **Text column** — display `About me` h2, niche intro (chunking / retrieval quality / evals), green-dot availability line, and **social handles** (mono `LABEL @handle ↗` lines, driven by `profile.socials` — same source as Contact; the `@handle` derives from each URL's last path segment).
+1. **Text column** — display `About me` h2, niche intro (chunking / retrieval quality / evals), green-dot availability line, and the **`Elsewhere` block** (below).
 2. **Anchor column** — stat `Card`: the grounding **standard, not a marketing metric** (`100%` / "of answers grounded in retrieved, citable sources"); below it the portrait slot (`Empty`, `aspect-[4/5] max-h-[540px]`) awaiting the B&W shoot.
 3. **Proof column** — `OPEN SOURCE` link tile (whole card clickable to GitHub) + two `+`-marker working-style points.
+
+### `Elsewhere` block — brand marks (built Jul 19, 2026)
+
+Social handles with real logos, in the About text column. shadcn `ItemGroup`/`Item` rows (rendered as `<a>`), each `size="sm"`: a `size-9` chip echoing the stat card's icon chip (`rounded-full bg-background ring-1 ring-foreground/10`), then the **handle** as the loud line with the platform name as a mono caption under it — the mark already names the platform, so no element repeats its neighbour. Capped at `max-w-[24rem]` so the trailing `↗` stays tied to its row. Driven by `profile.socials`; adding a platform is one entry there plus one glyph.
+
+**The marks** (`components/brand-marks.tsx` — not shadcn-managed, but not a section either): lucide-react v1 dropped brand icons and shadcn has no logo registry, so these are each platform's own official geometry, inlined. They carry no baked-in `fill` — `fill-current` means a mark takes the page's ink at rest, keeping the section monochrome, and its **real brand color appears on hover/focus**. That's how a real logo and the "semantic tokens only" rule coexist; brand hexes live in `app/data/profile.ts` (`SocialLink.brand`), never in the theme.
+
+`brand: null` means "no color to reveal", and those chips **invert** to light-on-ink instead: GitHub and X are black brands, so inversion *is* their official lockup, and email isn't a brand at all. Email also gets a typographic mono `@` rather than an icon — it reads as a peer of the marks without pretending to be one, and stays optically solid where a stroked lucide glyph would look thin beside filled logos. Instagram is the one gradient: flat ink at rest, its brand gradient (an SVG `linearGradient`) on hover.
 
 Dropped from the reference: the hand-drawn arrow doodle (off-voice) and its second photo (single portrait slot until the shoot). Body copy scales `15→17px` with a vw clamp for wide screens.
 

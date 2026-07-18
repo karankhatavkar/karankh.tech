@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react";
 import { ArrowUpRight, Camera, Plus, ScanSearch } from "lucide-react";
 
 import { about } from "@/app/data/about";
 import { profile } from "@/app/data/profile";
+import { BrandMark } from "@/components/brand-marks";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Empty,
@@ -9,11 +11,86 @@ import {
   EmptyHeader,
   EmptyMedia,
 } from "@/components/ui/empty";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemGroup,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item";
+import { cn } from "@/lib/utils";
 
-// The @handle is the last path segment of the profile URL, so new entries in
-// profile.socials need no extra field here.
-function socialHandle(href: string) {
-  return new URL(href).pathname.split("/").filter(Boolean).pop() ?? href;
+// Offsite presence. The mark names the platform, so the loud line is the
+// handle itself and the platform name rides underneath as a mono caption —
+// no element repeats what its neighbour already says.
+function Elsewhere() {
+  return (
+    <div className="mt-10">
+      <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+        Elsewhere
+      </p>
+      {/* Narrower than the intro paragraph: keeps the trailing arrow tied to
+          its row instead of stranded at the column edge. */}
+      <div className="-mx-3 mt-3 max-w-[24rem]">
+        <ItemGroup>
+          {profile.socials.map((social) => {
+            const external = social.href.startsWith("http");
+
+            return (
+              <Item
+                key={social.label}
+                size="sm"
+                className="group/social"
+                render={
+                  <a
+                    href={social.href}
+                    {...(external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  />
+                }
+              >
+                <ItemMedia className="self-center">
+                  <span
+                    // The brand hex rides in as a custom property so the hover
+                    // colour stays out of the class strings (and the theme).
+                    style={
+                      social.brand
+                        ? ({ "--brand": social.brand } as CSSProperties)
+                        : undefined
+                    }
+                    className={cn(
+                      "flex size-9 items-center justify-center rounded-full bg-background text-foreground/80 ring-1 ring-foreground/10 transition-colors duration-200",
+                      social.brand
+                        ? "group-hover/social:text-(--brand) group-hover/social:ring-(--brand)/30 group-focus-visible/social:text-(--brand) group-focus-visible/social:ring-(--brand)/30"
+                        : "group-hover/social:bg-foreground group-hover/social:text-background group-hover/social:ring-foreground group-focus-visible/social:bg-foreground group-focus-visible/social:text-background group-focus-visible/social:ring-foreground"
+                    )}
+                  >
+                    <BrandMark name={social.label} className="size-[17px]" />
+                  </span>
+                </ItemMedia>
+                <ItemContent className="gap-0.5">
+                  <ItemTitle className="text-[13px] font-normal text-foreground/85 transition-colors group-hover/social:text-foreground">
+                    {social.handle}
+                  </ItemTitle>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                    {social.label}
+                  </span>
+                </ItemContent>
+                <ItemActions>
+                  <ArrowUpRight
+                    className="size-3.5 text-muted-foreground/60 transition-colors group-hover/social:text-foreground"
+                    aria-hidden
+                  />
+                </ItemActions>
+              </Item>
+            );
+          })}
+        </ItemGroup>
+      </div>
+    </div>
+  );
 }
 
 // Portrait slot (DESIGN.md portrait spec); the B&W shoot replaces this tile
@@ -60,24 +137,7 @@ export function About() {
           Based in {profile.location} · Available for freelance &amp; contract
           work
         </p>
-        <ul className="mt-6 flex flex-col gap-2.5 font-mono text-xs tracking-wider">
-          {profile.socials.map((social) => (
-            <li key={social.label}>
-              <a
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <span className="uppercase">{social.label}</span>{" "}
-                <span className="text-foreground/70">
-                  @{socialHandle(social.href)}
-                </span>{" "}
-                ↗
-              </a>
-            </li>
-          ))}
-        </ul>
+        <Elsewhere />
       </div>
 
       <div className="flex flex-col gap-5">
