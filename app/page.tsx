@@ -2,9 +2,6 @@ import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
 import { Skills } from "@/components/sections/skills";
 import { MoreProjects, Projects } from "@/components/sections/projects";
-import { Experience } from "@/components/sections/experience";
-import { Education } from "@/components/sections/education";
-import { Certifications } from "@/components/sections/certifications";
 import { Contact } from "@/components/sections/contact";
 import { Slide } from "@/components/sections/slide";
 import { SlideRail } from "@/components/slide-rail";
@@ -41,15 +38,6 @@ export default function Home() {
       </Slide>
       <Slide id="more-projects">
         <MoreProjects />
-      </Slide>
-      <Slide id="experience">
-        <Experience />
-      </Slide>
-      {/* One credentials screen — see the note in `app/data/slides.ts`. On the
-          continuous page these stay two ordinary sections. */}
-      <Slide id="education" className="slides:gap-16">
-        <Education />
-        <Certifications />
       </Slide>
       {/* The footer rides on the closing slide rather than taking a screen of
           its own — two lines of small print do not make a slide. */}

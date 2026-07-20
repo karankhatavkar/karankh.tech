@@ -17,13 +17,10 @@ export const slides: Slide[] = [
   // land before any claim the site makes about itself (FLOW.md — "evidence
   // before claims"). About follows as the method behind them.
   { id: "projects", label: "Featured" },
+  // About absorbs the spine: Experience + Education fold into its track, so
+  // three near-identical date-stamped slides became part of one.
   { id: "about", label: "About me" },
   { id: "skills", label: "Skills & stack" },
   { id: "more-projects", label: "More projects" },
-  { id: "experience", label: "Experience" },
-  // Education and certifications ride together: neither fills a screen on its
-  // own, and as one credentials slide they stop the deck going thin near the
-  // end. Both keep their own ids, so `#certifications` still resolves.
-  { id: "education", label: "Education & certifications" },
   { id: "contact", label: "Contact" },
 ];
