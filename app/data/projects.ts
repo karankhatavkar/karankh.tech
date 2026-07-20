@@ -16,10 +16,11 @@ export type FeaturedProject = {
   sourceHref: string;
 };
 
-// The flagship RAG build — given featured treatment above the projects grid.
+// The flagship RAG build — holds the "Featured" slide on its own.
 export const featuredProject: FeaturedProject = {
   name: "EdgarBrief",
-  eyebrow: "Featured · RAG system",
+  // The slide is already titled "Featured", so the eyebrow only classifies.
+  eyebrow: "RAG system",
   tagline: "Grounded retrieval over a corpus of SEC 10-K filings.",
   summary:
     "An analyst-facing assistant for querying SEC filings in plain English. Every answer is generated only from retrieved passages and cites the filing it came from — and when the corpus can't support a question, it says so instead of guessing.",

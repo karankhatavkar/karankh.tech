@@ -1,15 +1,62 @@
-# Site Flow — Brainstorm & Direction
+# Site Flow — Direction & Brainstorm
 
-> **Status:** working brainstorm, not a locked spec. Captures the Jul 16, 2026
-> discussion on reshaping the page flow. Not referenced by CLAUDE.md / PROJECT.md /
+> **Status:** the flow below is **decided** (Jul 19, 2026); the brainstorm that
+> produced it is kept underneath as rationale. Captures the Jul 16 and Jul 19, 2026
+> discussions on reshaping the page flow. Not referenced by CLAUDE.md / PROJECT.md /
 > ROADMAP.md on purpose — this is a scratch/thinking doc.
+
+## Decided flow
+
+Six slides. Every early slide is evidence; biography is deliberately last-but-one.
+
+```
+1  HERO          positioning + stats + CTA
+2  EDGARBRIEF    the proof — live, clickable, grounded by design
+3  HOW I BUILD   generalise from EdgarBrief into repeatable method
+                 (chunking · retrieval quality · evals · scoping→build→evals→handover)
+4  DEPTH         the 6 other projects + skills strip — "the ML underneath"
+5  BACKGROUND    the 4-node spine — absorbs Experience / Education / Certifications
+6  CONTACT       the ask
+```
+
+Reads as: *here's the thing → here's how I make things → here's the range behind
+it → here's where the judgment came from → let's talk.*
+
+### Why this shape
+
+- **Evidence before claims.** The old order asserted competence (About, Skills) before
+  proving it. EdgarBrief is live and clickable — it moves to slide 2 and carries the pitch.
+- **Skills stops being a slide.** ~50 items across 5 categories is an ATS artifact, not a
+  buyer artifact — and listing Java/MySQL/Kubernetes beside RAG reads *generalist junior*
+  rather than *RAG specialist*. It survives as a trimmed strip inside DEPTH.
+- **"More projects" stops being a slide.** The six academic-ML repos are supporting
+  material proving range, not the pitch; they merge into DEPTH.
+- **Three date-stamped lists become one.** Experience + Education + Certifications
+  collapse into the spine (see below).
+- **Amdocs is not a headline.** Deliberate call, Jul 19 — the role was junior and largely
+  observational, so giving it a full slide overstates it. Its evidentiary weight lives in
+  the spine as node 3. Copy in `app/data/experience.ts` stays as-is.
+- **HOW I BUILD is load-bearing.** With Amdocs demoted, this is the slide that converts a
+  skeptic: it shows you *think* like someone who has shipped, using the strongest writing
+  already on the site (currently buried in `app/data/about.ts`).
+
+## Rollout phases
+
+| Phase | Scope | Status |
+|---|---|---|
+| **Phase 1 — reorder** | Move EdgarBrief to slide 2, shift About below it. Pure ordering; no copy or component rewrites. | in progress |
+| **Phase 2 — rebuild the slides** | Rewrite About → **HOW I BUILD**; fold Skills + More projects into **DEPTH**; build the 4-node **BACKGROUND** spine over Experience/Education/Certifications. | not started |
+| **Phase 3 — digital twin chat** | The "ask my twin" chat window — the pull layer, and the site's real differentiator. Deferred deliberately: a mediocre twin would *disprove* the RAG pitch rather than demo it, so it ships only once phases 1–2 stand on their own. | not started |
+
+> Phase numbering here is local to this document — it is **not** the same axis as the
+> build phases in [ROADMAP.md](./ROADMAP.md).
 
 ## Goal lens
 
 Everything below is judged against one goal: **win freelance/contract LLM & RAG
 work.** A visitor is a potential client, not a recruiter reading a CV.
 
-## Current flow (as built)
+## Prior flow (what the decision above replaces)
 
 Single-page vertical scroll, stacked in résumé order:
 
@@ -100,7 +147,12 @@ E&C · MIT-WPU         1000+ sensors ·       LangChain · FAISS ·   RAG & agen
 
 ## Open decisions
 
-- [ ] **Site's primary job** — prove-capability-fast / demonstrate-the-twin / tell-your-journey (not yet chosen).
+- [x] **Site's primary job** — **prove-capability-fast.** Demonstrate-the-twin is the
+      phase 3 goal, not the phase 1 one; tell-your-journey was rejected as the backbone
+      (it foregrounds time, which spotlights "junior + current student").
+- [x] **Where the spine sits in the page** — slide 5, **BACKGROUND**, between DEPTH and
+      CONTACT. Hand-off to the twin gets designed in phase 3.
 - [ ] **Wording** — confirm "kicker + plain label" format; lock the concept vocabulary (A vs B vs a custom word per node).
 - [ ] **Visual form of the spine** — horizontal 4-step rail vs vertical connected line vs four framed cards with a through-line (decide *after* concept lock).
-- [ ] **Where the spine sits in the page** and how it hands off to the twin as the depth/pull layer.
+- [ ] **Hero stat `1 · RAG in production`** — decide what the "1" counts now that Amdocs
+      is not a headline claim.

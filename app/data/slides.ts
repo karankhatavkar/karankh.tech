@@ -13,9 +13,12 @@ export type Slide = {
 // This list is the single source of order for both the page and the rail.
 export const slides: Slide[] = [
   { id: "hero", label: hero.rail },
+  // EdgarBrief leads: it is the one piece of live, clickable proof, so it lands
+  // before any claim the site makes about itself (FLOW.md — "evidence before
+  // claims"). About follows as the method behind it.
+  { id: "projects", label: "Featured" },
   { id: "about", label: "About me" },
   { id: "skills", label: "Skills & stack" },
-  { id: "projects", label: "Projects" },
   { id: "more-projects", label: "More projects" },
   { id: "experience", label: "Experience" },
   // Education and certifications ride together: neither fills a screen on its

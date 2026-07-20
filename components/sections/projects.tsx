@@ -123,10 +123,12 @@ function FeaturedProjectCard() {
 
 // The featured build carries the whole pitch — hybrid retrieval in, cited
 // answer out — and it is the one thing a hiring reader should leave with, so
-// it holds a screen on its own and the rest of the work follows.
+// it holds a screen on its own and the rest of the work follows. It takes the
+// display heading and the full frame rather than the narrower right column:
+// this is the site's one piece of live proof and it earns the width.
 export function Projects() {
   return (
-    <Section id="projects" title="Projects">
+    <Section id="projects" title="Featured" variant="display">
       <FeaturedProjectCard />
     </Section>
   );

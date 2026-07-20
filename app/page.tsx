@@ -30,14 +30,14 @@ export default function Home() {
       <Slide id="hero" bleed>
         <Hero />
       </Slide>
+      <Slide id="projects">
+        <Projects />
+      </Slide>
       <Slide id="about">
         <About />
       </Slide>
       <Slide id="skills">
         <Skills />
-      </Slide>
-      <Slide id="projects">
-        <Projects />
       </Slide>
       <Slide id="more-projects">
         <MoreProjects />
