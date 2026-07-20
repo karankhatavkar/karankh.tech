@@ -1,7 +1,7 @@
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
-import { Skills } from "@/components/sections/skills";
-import { MoreProjects, Projects } from "@/components/sections/projects";
+import { Depth } from "@/components/sections/depth";
+import { Projects } from "@/components/sections/projects";
 import { Contact } from "@/components/sections/contact";
 import { Slide } from "@/components/sections/slide";
 import { SlideRail } from "@/components/slide-rail";
@@ -30,14 +30,11 @@ export default function Home() {
       <Slide id="projects">
         <Projects />
       </Slide>
+      <Slide id="depth">
+        <Depth />
+      </Slide>
       <Slide id="about">
         <About />
-      </Slide>
-      <Slide id="skills">
-        <Skills />
-      </Slide>
-      <Slide id="more-projects">
-        <MoreProjects />
       </Slide>
       {/* The footer rides on the closing slide rather than taking a screen of
           its own — two lines of small print do not make a slide. */}

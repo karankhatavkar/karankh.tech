@@ -32,7 +32,7 @@ With HOW I BUILD deferred to phase 4, the deck runs **five slides**:
 ```
 1  HERO       positioning + stats + CTA
 2  FEATURED   EdgarBrief + the RFP client build — live, clickable proof
-3  DEPTH      the 6 ML repos + trimmed skills strip
+3  DEPTH      the 6 ML repos, ranked + the full skills strip, weighted
 4  ABOUT      intro + the 5-stop background spine
 5  CONTACT    the ask
 ```
@@ -48,22 +48,22 @@ how Karan engineers; they cannot infer what it is like to hire him.
 
 **ABOUT drops from 3 to 4** once DEPTH exists, restoring "evidence before claims".
 
-### As shipped (Jul 20, 2026)
+### As shipped (Jul 21, 2026)
 
-The deck today is **not** the target above, because two slides do not exist yet:
+The deck today is the **interim flow** above — five slides, one short of target:
 
 ```
-1  HERO        2  FEATURED     3  ABOUT     4  SKILLS     5  MORE PROJECTS     6  CONTACT
+1  HERO        2  FEATURED       3  DEPTH       4  ABOUT       5  CONTACT
 ```
 
+- **DEPTH shipped Jul 21, 2026**, absorbing SKILLS and MORE PROJECTS. Both standalone
+  slides are gone: `components/sections/skills.tsx` is deleted and `MoreProjects` is
+  removed from `projects.tsx`. Only HOW I BUILD is still missing from the target.
+- **ABOUT dropped from 3 to 4** in the same change, as this document said it would once
+  DEPTH existed. "Evidence before claims" is restored and biography is last-but-one.
 - **BACKGROUND never became its own slide.** It merged into **ABOUT** as a horizontal
   track. That is a permanent change, not a staging step — the target above is updated to
   match.
-- **ABOUT sits at 3, but belongs at 5.** It is early only because HOW I BUILD and DEPTH
-  are missing. Moving it below SKILLS / MORE PROJECTS now would honour "biography
-  last-but-one", but would also put the untrimmed ~50-item skills dump directly after the
-  featured builds. Left at 3 deliberately until DEPTH exists — see Open decisions.
-- **SKILLS and MORE PROJECTS are still the old slides**, awaiting the DEPTH merge.
 - **A testimonial panel shipped in ABOUT** and is not part of any decision recorded here:
   auto-rotating vertical ticker, no controls, scales to any number of entries in
   `app/data/testimonials.ts`. Currently seeded with visibly-marked placeholders — real,
@@ -75,7 +75,14 @@ The deck today is **not** the target above, because two slides do not exist yet:
   proving it. EdgarBrief is live and clickable — it moves to slide 2 and carries the pitch.
 - **Skills stops being a slide.** ~50 items across 5 categories is an ATS artifact, not a
   buyer artifact — and listing Java/MySQL/Kubernetes beside RAG reads *generalist junior*
-  rather than *RAG specialist*. It survives as a trimmed strip inside DEPTH.
+  rather than *RAG specialist*. It survives as a strip inside DEPTH.
+  **The trim was reversed on Jul 21, 2026** — Karan's call: keep every item, rank them by
+  ink instead. The full list stays in `app/data/skills.ts`; `coreSkills` in
+  `app/data/depth.ts` marks the ~16 the RAG and agent work runs on, and those render at
+  full weight while the rest recede to `muted-foreground/65`. This answers the original
+  concern without deleting anything: the specialism is what the eye lands on, and a client
+  checking "has he touched Postgres" still gets an answer. The borrowed idiom is the
+  hero's muted/full-ink `expertise` segments, so the two slides read as one system.
 - **"More projects" stops being a slide.** The six academic-ML repos are supporting
   material proving range, not the pitch; they merge into DEPTH.
 - **Three date-stamped lists become one.** Experience + Education + Certifications
@@ -97,7 +104,7 @@ The deck today is **not** the target above, because two slides do not exist yet:
 | Phase | Scope | Status |
 |---|---|---|
 | **Phase 1 — reorder** | Move EdgarBrief to slide 2, shift About below it. Pure ordering; no copy or component rewrites. | **done** |
-| **Phase 2 — rebuild the slides** | Fold Skills + More projects into **DEPTH**; build the **BACKGROUND** spine over Experience/Education/Certifications. | **in progress** — spine shipped (as a track inside About, not its own slide); **DEPTH** is what remains |
+| **Phase 2 — rebuild the slides** | Fold Skills + More projects into **DEPTH**; build the **BACKGROUND** spine over Experience/Education/Certifications. | **done** — spine shipped Jul 20 (as a track inside About, not its own slide); DEPTH shipped Jul 21 |
 | **Phase 3 — digital twin chat** | The "ask my twin" chat window — the pull layer, and the site's real differentiator. Deferred deliberately: a mediocre twin would *disprove* the RAG pitch rather than demo it, so it ships only once the deck stands on its own. | not started |
 | **Phase 4 — HOW I BUILD** | Rewrite the method slide: chunking · retrieval quality · evals · honest degradation, over the `scope → build → evals → handover` arc. Rehomes `about.stat` / `about.points` / `about.openSource`, which currently render nowhere. | not started — **postponed here Jul 20, 2026** |
 
@@ -201,6 +208,24 @@ interim flow, 4 once HOW I BUILD lands.
 Six rows at roughly 90px each plus a heading is ~550px, against a `min-h-svh` slide.
 It fits, but with little slack — the rows already tighten in slide mode via
 `slides:py-[clamp(14px,2.4vh,24px)]`. Verify before calling it done.
+
+### As built (Jul 21, 2026) — where the sketch above was wrong
+
+The sketch is kept for its reasoning, but four of its calls did not survive contact:
+
+1. **Skills was never trimmed.** Karan reversed it — full list, ranked by ink. See
+   *Why this shape*. The "blocker" in point 1 above dissolved: what actually blew the
+   vertical budget was ~50 **badges**, not ~50 **items**. Set as running type separated
+   by `·`, all five categories fit a 0.85fr column in ~180px.
+2. **Neither old component was reused.** `MoreProjects` and `Skills` were both deleted
+   rather than adapted; `components/sections/depth.tsx` renders both halves fresh.
+3. **The rows kept their right-hand tech column.** Point 2 predicted it would crowd. It
+   does not — the description moved behind a hover, so the always-visible row is just
+   `nn · name · ↗ · tech` and has room to spare.
+4. **Vertical budget was never tight.** The collapsed index is ~330px, not ~550px, and
+   only one description is ever open. Verified at 1512×798 with slide mode active: the
+   whole slide sits on one screen with ~100px of slack, and expanding a row shifts the
+   centred block by about a pixel.
 
 ### Title — open
 
@@ -424,7 +449,20 @@ worth a look: *Foundations*, *Theory*, *Study*. Flagged in `app/data/background.
 - [x] **Deck order without HOW I BUILD** — five slides, **DEPTH at 3**; see *Interim flow*.
 - [x] **Where ABOUT sits** — drops from 3 to **4** when DEPTH lands. It is early today
       only because the slides meant to precede it do not exist.
-- [x] **DEPTH's layout** — two columns: project rows left, skills strip right.
+- [x] **DEPTH's layout** — two columns: project rows left, skills strip right. Shipped
+      Jul 21, 2026 at `1.15fr / 0.85fr`.
+- [x] **DEPTH's title** — rail label `Depth`, heading **"The ML underneath"**.
+- [x] **DEPTH's claim** — *not his first rodeo*: seniority, not breadth. The RAG
+      specialism sits on top of real ML work rather than substituting for it.
+- [x] **Skills: keep or trim** — **keep all ~50, rank by ink.** Reverses the trim; see
+      *Why this shape*.
+- [x] **How the six repos show** — a ranked index, ordered by proximity to the RAG and
+      agent work and numbered `01`–`06` so the ranking is legible rather than arbitrary.
+      Name and stack always visible; the description costs a hover, because six open
+      paragraphs bury the ranking the list exists to show. The reveal is a CSS
+      `0fr → 1fr` grid row — no state, no client boundary. Below `slides:` every
+      description is simply open: there is no hover on a phone, and content behind an
+      interaction that cannot happen is content that does not exist.
 
 ### Outstanding
 
@@ -437,10 +475,9 @@ worth a look: *Foundations*, *Theory*, *Study*. Flagged in `app/data/background.
 - [ ] **Verify the track's scroll behaviour in a real browser.** Drift, settle and drag
       are all unverified — see *Known-unstable*.
 - [ ] **`RESEARCH` as node 02's kicker** — may overclaim for a taught M.Tech.
-- [ ] **Trim `app/data/skills.ts`.** ~50 items reading *generalist junior* is live now
-      and does not need the DEPTH merge to fix — a content edit, not a build.
-- [ ] **DEPTH's title.** Rail label + heading undecided — see the table in the DEPTH
-      section. Leaning `Depth` / "The ML underneath".
+- [ ] **`pgvector` and `PydanticAI` are missing from `app/data/skills.ts`.** Both are load
+      bearing in EdgarBrief and are the strongest RAG signals on the site, but the toolkit
+      cannot show what the list does not contain. A content edit, not a build.
 - [ ] **Where the testimonials sit.** Proposed (not decided): move them out of ABOUT to
       **CONTACT**. ABOUT currently does two jobs that want opposite ends of the funnel —
       testimonials are a conversion device that works hardest beside the CTA, the spine

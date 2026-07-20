@@ -17,10 +17,12 @@ export const slides: Slide[] = [
   // land before any claim the site makes about itself (FLOW.md — "evidence
   // before claims"). About follows as the method behind them.
   { id: "projects", label: "Featured" },
+  // Depth absorbs Skills + More projects: the six supporting repos and the
+  // toolkit are one argument (the ML the RAG work stands on), not two slides.
+  { id: "depth", label: "Depth" },
   // About absorbs the spine: Experience + Education fold into its track, so
-  // three near-identical date-stamped slides became part of one.
+  // three near-identical date-stamped slides became part of one. It sits below
+  // Depth now that Depth exists — evidence before biography (FLOW.md).
   { id: "about", label: "About me" },
-  { id: "skills", label: "Skills & stack" },
-  { id: "more-projects", label: "More projects" },
   { id: "contact", label: "Contact" },
 ];

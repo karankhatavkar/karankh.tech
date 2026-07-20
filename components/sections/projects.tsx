@@ -1,8 +1,4 @@
-import {
-  featuredProjects,
-  projects,
-  type FeaturedProject,
-} from "@/app/data/projects";
+import { featuredProjects, type FeaturedProject } from "@/app/data/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -162,42 +158,6 @@ export function Projects() {
   );
 }
 
-// In slide mode the row rhythm tracks the viewport height, so the full list
-// lands on one screen on a short laptop as well as a tall one instead of
-// losing its last row off the bottom edge.
-export function MoreProjects() {
-  return (
-    <Section id="more-projects" title="More projects">
-      <ul className="divide-y">
-        {projects.map((project) => (
-          <li key={project.name}>
-            <a
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group grid gap-x-8 gap-y-1 py-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/50 sm:grid-cols-[1fr_auto] sm:items-baseline slides:py-[clamp(14px,2.4vh,24px)]"
-            >
-              <div className="min-w-0">
-                <span className="flex items-baseline gap-2 text-lg font-medium">
-                  {project.name}
-                  <span
-                    aria-hidden
-                    className="text-sm text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  >
-                    ↗
-                  </span>
-                </span>
-                <p className="mt-1 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
-                  {project.description}
-                </p>
-              </div>
-              <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-right">
-                {project.tech.join(" · ")}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </Section>
-  );
-}
+// `MoreProjects` lived here until Jul 21, 2026. The six repos it listed now
+// render as the index inside `components/sections/depth.tsx`, ranked by
+// proximity to the RAG work rather than left in a flat list.

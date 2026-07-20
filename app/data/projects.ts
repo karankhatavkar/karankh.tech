@@ -99,7 +99,11 @@ export const featuredProjects: FeaturedProject[] = [
   },
 ];
 
-// Lead with LLM/agent work, per spec.
+// The supporting repos, rendered as DEPTH's index. Order is load-bearing and
+// runs most-to-least adjacent to the RAG/agent work — agent build, then
+// transformers/NLP, then attention and interpretability, then the generative
+// and time-series work. The slide numbers these 01–06, so reordering here
+// silently re-ranks them on the page.
 export const projects: Project[] = [
   {
     name: "Founder's Court",
@@ -130,17 +134,17 @@ export const projects: Project[] = [
     href: "https://github.com/karankhatavkar/variational-autoencoders-image-restoration",
   },
   {
-    name: "Acoustic RUL",
-    description:
-      "Digital-twin simulator for run-to-failure audio; predicts recoil-spring RUL via XGBoost, 2D CNN, 1D CNN.",
-    tech: ["Digital Twin", "CNN"],
-    href: "https://github.com/karankhatavkar/ak47-acoustic-rul",
-  },
-  {
     name: "Predictive Maintenance",
     description:
       "RUL on NASA bearings & PHM tool wear, validated on unseen machines/failure modes.",
     tech: ["PyTorch", "CNN-LSTM", "TCN"],
     href: "https://github.com/karankhatavkar/predictive-maintenance-bearing-tool-wear",
+  },
+  {
+    name: "Acoustic RUL",
+    description:
+      "Digital-twin simulator for run-to-failure audio; predicts recoil-spring RUL via XGBoost, 2D CNN, 1D CNN.",
+    tech: ["Digital Twin", "CNN"],
+    href: "https://github.com/karankhatavkar/ak47-acoustic-rul",
   },
 ];
