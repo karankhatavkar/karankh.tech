@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { ArrowRight } from "lucide-react";
 
 import { about } from "@/app/data/about";
 import { backgroundTrack } from "@/app/data/background";
@@ -94,19 +95,24 @@ export function About() {
       aria-labelledby="about-heading"
       className="flex flex-col border-t py-16 sm:py-20 slides:border-t-0 slides:py-0"
     >
-      {/* No `justify-between`: on a wide frame it threw the testimonial panel
-          against the right edge with ~700px of dead space between it and the
-          intro. The two sit adjacent instead, and the frame's trailing space
-          reads as the same ragged right the paragraph already has. */}
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-14">
+      <h2
+        id="about-heading"
+        className="text-[clamp(32px,4vw,48px)] leading-[1.05] font-[520] tracking-[-0.04em]"
+      >
+        {about.heading}
+      </h2>
+
+      {/* The testimonial belongs beside the intro, not the heading. Lifting the
+          heading to full width lets the panel centre against the paragraph +
+          availability block; with the heading still in the column, `items-start`
+          pinned the panel up at the heading, floating above the text it sits
+          next to. Still no `justify-between` — on a wide frame it threw the
+          panel against the right edge with a strip of dead space between; the
+          two stay adjacent and the frame's trailing space reads as the same
+          ragged right the paragraph already has. */}
+      <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-14">
         <div className="min-w-0">
-          <h2
-            id="about-heading"
-            className="text-[clamp(32px,4vw,48px)] leading-[1.05] font-[520] tracking-[-0.04em]"
-          >
-            {about.heading}
-          </h2>
-          <p className="mt-5 max-w-[52ch] text-[clamp(15px,1.05vw,17px)] leading-relaxed text-muted-foreground">
+          <p className="max-w-[52ch] text-[clamp(15px,1.05vw,17px)] leading-relaxed text-muted-foreground">
             {about.intro}
           </p>
           {/* The availability line moves under the intro now that the
@@ -127,9 +133,17 @@ export function About() {
       </div>
 
       <div className="mt-10 slides:mt-[clamp(20px,4vh,44px)]">
-        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-          {backgroundTrack.eyebrow}
-        </p>
+        {/* Eyebrow and direction cue share one row so the track follows right
+            after the label — no empty header band between them. `Earlier →`
+            says the track runs back in time toward the right; the newest stop
+            (the NOW-badged card) sits at the left. */}
+        <div className="flex items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+          <p>{backgroundTrack.eyebrow}</p>
+          <span aria-hidden className="flex items-center gap-1.5">
+            Earlier
+            <ArrowRight className="size-3" strokeWidth={1.75} />
+          </span>
+        </div>
         <div className="mt-4">
           <SpineTrack />
         </div>

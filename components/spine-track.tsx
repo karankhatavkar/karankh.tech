@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { spine } from "@/app/data/background";
 import { Badge } from "@/components/ui/badge";
@@ -70,13 +70,18 @@ function alignToNearestStop(el: HTMLElement | null) {
   });
 }
 
-// The spine as a horizontal track: five stops read newest-first, drifting on
-// their own so the flow is shown rather than described.
+// The spine as a horizontal, dated axis: five stops read newest-first, drifting
+// on their own so the flow is shown rather than described.
 //
-// Direction is deliberate and runs *against* the reading order — the arrows
-// point left, back toward `01 · NOW`. The track reads "everything led here"
-// rather than "here is my journey forward", which is the whole reason the
-// order was reversed in the first place (FLOW.md — evidence before biography).
+// What makes it read as *time* and not a ranked list: each stop leads with its
+// start year, sized as the loudest thing on the card, the live stop carries a
+// `Now` badge, and the section eyebrow (in About) pairs "Background" with an
+// `Earlier →` cue so the reader knows the track runs back in time toward the
+// right — without spending a full row of height on a header of its own. Position
+// along the track therefore means when. (This replaced left-pointing inter-card
+// arrows, which pointed the opposite way and fought the direction. FLOW.md still
+// holds — newest-first, evidence before biography — the axis just says it in
+// plainer terms.)
 //
 // Motion rules: the drift makes exactly one pass and stops. That is what keeps
 // it WCAG 2.2.2-safe without a pause control — there is no indefinitely moving
@@ -373,7 +378,7 @@ export function SpineTrack() {
       >
         {spine.map((node, index) => (
           <li
-            key={node.index}
+            key={node.label}
             data-stop={index}
             className="flex shrink-0 items-stretch"
           >
@@ -387,20 +392,38 @@ export function SpineTrack() {
               // nowhere to go is just a row.
               className="flex w-[clamp(252px,23vw,330px)] flex-col border-t pt-5"
             >
-              <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-                {node.index} · {node.kicker}
+              {/* The loud anchor. The year is the biggest thing on the card so
+                  the eye lands on *when* first; the concept rides beside it, and
+                  the one live stop earns the pulse. */}
+              <div className="flex items-baseline gap-2.5">
+                <span className="text-2xl font-semibold tracking-tight tabular-nums">
+                  {node.year}
+                </span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                  {node.kicker}
+                </span>
+                {node.now && (
+                  <span className="ml-auto flex items-center gap-1.5 self-center rounded-full bg-primary px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary-foreground">
+                    <span className="relative flex size-1.5">
+                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary-foreground/70 motion-reduce:hidden" />
+                      <span className="relative inline-flex size-1.5 rounded-full bg-primary-foreground" />
+                    </span>
+                    Now
+                  </span>
+                )}
+              </div>
+              <p className="mt-1 font-mono text-[11px] leading-relaxed text-muted-foreground">
+                {node.range}
               </p>
-              <h3 className="mt-2 text-base font-medium tracking-tight text-balance">
+              <h3 className="mt-3 text-base font-medium tracking-tight text-balance">
                 {node.label}
               </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {node.claim}
               </p>
-              <div className="mt-auto pt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
-                {node.evidence.map((line) => (
-                  <p key={line}>{line}</p>
-                ))}
-              </div>
+              <p className="mt-auto pt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
+                {node.place}
+              </p>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {node.chips.map((chip) => (
                   <Badge key={chip} variant="outline" className="font-mono">
@@ -410,18 +433,17 @@ export function SpineTrack() {
               </div>
             </article>
 
-            {/* Arrowheads point back down the track, toward `01 · NOW`.
-                The spacer carries the same `border-t` as the cards, so the
-                hairline runs unbroken across all five stops and the arrows sit
-                on one continuous rule. Without it the rule breaks at every gap
-                and the arrows read as loose marks rather than a flow. */}
+            {/* A plain gap carrying the same `border-t` as the cards, so the
+                hairline runs unbroken across all five stops and reads as one
+                continuous axis with the years as its ticks. The old
+                back-pointing arrows lived here; the header's `Earlier →` now
+                carries the direction, so the arrows came out rather than fight
+                it. */}
             {index < spine.length - 1 && (
               <span
                 aria-hidden
-                className="flex w-10 shrink-0 items-center justify-center self-start border-t pt-[11px] text-muted-foreground sm:w-14"
-              >
-                <ArrowLeft className="size-4" strokeWidth={2} />
-              </span>
+                className="w-10 shrink-0 self-start border-t sm:w-14"
+              />
             )}
           </li>
         ))}
