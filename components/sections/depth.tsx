@@ -48,7 +48,7 @@ function RepoIndex() {
               </div>
               <div className="grid grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out slides:grid-rows-[0fr] slides:group-hover:grid-rows-[1fr] slides:group-focus-within:grid-rows-[1fr] motion-reduce:transition-none">
                 <div className="overflow-hidden">
-                  <p className="max-w-[54ch] pt-1.5 pl-[calc(2ch+1rem)] text-[13px] leading-relaxed text-muted-foreground">
+                  <p className="max-w-[54ch] pt-1.5 pl-[calc(2ch+1rem)] text-[13px] leading-relaxed text-justify text-muted-foreground">
                     {project.description}
                   </p>
                 </div>
@@ -61,63 +61,69 @@ function RepoIndex() {
   );
 }
 
-// The full stack, nothing dropped — but weighted. Items the RAG and agent work
-// runs on sit in full ink; the rest recede without disappearing, so a client
-// scanning for "has he touched Postgres" still finds it while the specialism
-// is what reads first. Set as running type rather than ~50 badges: at this
-// count a badge grid is a wall, and weight is the only thing that can rank it.
+// The full stack, nothing dropped, but ranked. Within each category the RAG and
+// agent tools are pulled to the front and set in full ink; the rest follow in
+// muted grey, so a client scanning for "has he touched Postgres" still finds it
+// while the specialism reads first. Running type, not ~50 badges: at this count
+// a badge grid is a wall, and order plus weight is what ranks it.
 function Toolkit() {
   return (
     <div>
       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
         {depth.skillsLabel}
       </p>
-      <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground/80">
-        {depth.skillsCaption}
-      </p>
-      <dl className="mt-5 grid gap-4 slides:mt-[clamp(14px,2.2vh,24px)] slides:gap-[clamp(10px,1.8vh,18px)]">
-        {skills.map((group) => (
-          <div key={group.category}>
-            <dt className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/70">
-              {group.category}
-            </dt>
-            <dd className="mt-1.5 text-[13px] leading-relaxed">
-              {group.items.map((item, index) => (
-                <span key={item}>
-                  {index > 0 && (
-                    // Light, but not lighter than the muted items themselves:
-                    // below this the separators vanish between two full-ink
-                    // skills and the run reads as one long phrase.
-                    <span className="text-muted-foreground/55" aria-hidden>
-                      {" · "}
+      <dl className="mt-6 grid gap-5 slides:mt-[clamp(14px,2.2vh,24px)] slides:gap-[clamp(10px,1.8vh,18px)]">
+        {skills.map((group) => {
+          // Core (RAG/agent) items first, the rest after — a stable partition,
+          // so ink weight and reading order say the same thing.
+          const ordered = [
+            ...group.items.filter((item) => coreSkills.has(item)),
+            ...group.items.filter((item) => !coreSkills.has(item)),
+          ];
+
+          return (
+            <div key={group.category}>
+              <dt className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground/70">
+                {group.category}
+              </dt>
+              <dd className="mt-2 text-[15px] leading-relaxed">
+                {ordered.map((item, index) => (
+                  <span key={item}>
+                    {index > 0 && (
+                      // Light, but not lighter than the muted items themselves:
+                      // below this the separators vanish between two full-ink
+                      // skills and the run reads as one long phrase.
+                      <span className="text-muted-foreground/55" aria-hidden>
+                        {" · "}
+                      </span>
+                    )}
+                    <span
+                      className={
+                        coreSkills.has(item)
+                          ? "text-foreground"
+                          : "text-muted-foreground/65"
+                      }
+                    >
+                      {item}
                     </span>
-                  )}
-                  <span
-                    className={
-                      coreSkills.has(item)
-                        ? "text-foreground"
-                        : "text-muted-foreground/65"
-                    }
-                  >
-                    {item}
                   </span>
-                </span>
-              ))}
-            </dd>
-          </div>
-        ))}
+                ))}
+              </dd>
+            </div>
+          );
+        })}
       </dl>
     </div>
   );
 }
 
 // Slide 3 (Jul 21, 2026) — the DEPTH merge from FLOW.md phase 2. Replaces the
-// old standalone Skills and "More projects" slides: the six academic-ML repos
-// and the toolkit are one argument, not two, so they share a screen.
+// old standalone Skills and "More projects" slides: the six ML repos and the
+// stack are one argument, not two, so they share a screen.
 export function Depth() {
   return (
     <Section id="depth" title={depth.heading} variant="display">
-      <p className="max-w-[68ch] text-[clamp(15px,1.05vw,17px)] leading-relaxed text-muted-foreground">
+      <p className="max-w-[68ch] text-[clamp(15px,1.05vw,17px)] leading-relaxed text-justify text-muted-foreground">
         {depth.support}
       </p>
       {/* The index takes the wider half: its rows carry a name, a stack line

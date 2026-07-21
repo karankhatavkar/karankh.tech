@@ -1,18 +1,15 @@
 import { skills } from "@/app/data/skills";
 
-// DEPTH — slide 3. The seniority argument: the RAG specialism sits on top of
-// real ML work, it did not replace it. Everything here is supporting evidence,
-// so the slide stays a scan surface — names and toolkit visible at a glance,
-// detail on demand.
+// DEPTH — slide 3. The breadth argument: RAG and agents are the focus, but the
+// modeling work runs wider, built alongside it rather than before it. Everything
+// here is supporting evidence, so the slide stays a scan surface: names and
+// stack visible at a glance, detail on demand.
 export const depth = {
-  heading: "The ML underneath",
+  heading: "Also built",
   support:
-    "Before the retrieval pipelines came three years of models — clinical NLP, medical imaging, EEG and acoustic signals. All six repos below are public and readable. The RAG work stands on this, not beside it.",
-  projectsLabel: "Ordered by proximity to the RAG & agent work",
-  skillsLabel: "The toolkit",
-  // Explains the weighting so the muted half reads as ranking rather than as a
-  // rendering accident.
-  skillsCaption: "Full weight — what the RAG and agent work actually runs on.",
+    "A wider sample of the work, built alongside the RAG projects and all public: an agent skill, clinical NER, EEG classification, generative image models, and time-series RUL.",
+  projectsLabel: "Projects",
+  skillsLabel: "Stack",
 };
 
 // The specialism, called out by ink weight inside the full list. Nothing is
@@ -24,6 +21,9 @@ export const depth = {
 export const coreSkills = new Set([
   "RAG",
   "LangChain",
+  "LangGraph",
+  "PydanticAI",
+  "RAGAS",
   "LLMs (Llama, Mistral, GPT-4)",
   "Hugging Face",
   "Claude Agent Skills",
@@ -31,6 +31,7 @@ export const coreSkills = new Set([
   "Gemini API",
   "Chroma",
   "FAISS",
+  "pgvector",
   "PyTorch",
   "Transformers",
   "BERT/BioBERT",

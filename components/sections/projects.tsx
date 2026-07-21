@@ -21,7 +21,7 @@ function Pipeline({ pipeline }: { pipeline: FeaturedProject["pipeline"] }) {
       <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
         {pipeline.label}
       </p>
-      <div className="flex flex-wrap items-stretch gap-1.5 font-mono text-xs">
+      <div className="flex min-h-[3.25rem] flex-wrap items-center gap-1.5 font-mono text-xs">
         {pipeline.nodes.map((node, index) => {
           const last = index === pipeline.nodes.length - 1;
 
@@ -78,7 +78,7 @@ function FeaturedProjectCard({ project }: { project: FeaturedProject }) {
         <CardDescription>{project.tagline}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="text-sm leading-relaxed text-justify text-muted-foreground">
           {project.summary}
         </p>
 
@@ -129,7 +129,7 @@ function FeaturedProjectCard({ project }: { project: FeaturedProject }) {
           </Button>
         ) : (
           // Saying why there is no repo beats leaving a hole where the other
-          // card has a button — private client work is itself a signal.
+          // card has a button — a private repo is itself a signal.
           project.sourceNote && (
             <span className="font-mono text-xs text-muted-foreground">
               {project.sourceNote}
@@ -143,9 +143,9 @@ function FeaturedProjectCard({ project }: { project: FeaturedProject }) {
 
 // The featured slide is the site's only live, clickable proof, so it takes the
 // display heading and the full frame rather than the narrower right column.
-// Two cards side by side: the RAG build that carries the pitch, and the client
-// build that shows it shipped for someone else. They stack below `lg`, where
-// half a column would squeeze the pipeline strips into unreadable wrapping.
+// Two cards side by side: the RAG build that carries the pitch, and the agentic
+// SaaS that shows the same method shipped as a product. They stack below `lg`,
+// where half a column would squeeze the pipeline strips into unreadable wrapping.
 export function Projects() {
   return (
     <Section id="projects" title="Featured" variant="display">

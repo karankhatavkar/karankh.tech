@@ -20,11 +20,10 @@ export const hero = {
     { text: "AI agents.", muted: false },
   ] satisfies ExpertiseSegment[],
   support:
-    "— focused on moving RAG from concept to robust, verifiable production tech.",
+    "Built, evaluated, and handed over so your team can run it without me.",
   // Honest, content-driven numbers — update as facts change (DESIGN.md).
   stats: [
-    { value: "3+", label: "years in ML" },
-    { value: "1", label: "RAG in production" },
-    { value: "7", label: "open-source projects" },
+    { value: "3+", label: "yrs shipping AI" },
+    { value: "9.6", label: "GPA · Master’s in AI" },
   ] satisfies HeroStat[],
 };

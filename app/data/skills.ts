@@ -9,12 +9,15 @@ export const skills: SkillGroup[] = [
     items: [
       "RAG",
       "LangChain",
+      "LangGraph",
+      "PydanticAI",
       "LLMs (Llama, Mistral, GPT-4)",
       "Hugging Face",
       "Ollama",
       "Claude Agent Skills",
       "Prompt & context engineering",
       "Gemini API",
+      "RAGAS",
       "Chroma",
       "FAISS",
     ],
@@ -57,6 +60,7 @@ export const skills: SkillGroup[] = [
     items: [
       "FAISS",
       "Chroma",
+      "pgvector",
       "PostgreSQL",
       "MongoDB",
       "MySQL",

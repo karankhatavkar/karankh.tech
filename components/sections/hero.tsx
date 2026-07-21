@@ -94,10 +94,10 @@ export function Hero() {
         <ul className="relative z-10 mb-[clamp(28px,5vh,56px)] flex gap-[clamp(28px,4vw,56px)]">
           {hero.stats.map((stat) => (
             <li key={stat.label}>
-              <span className="block text-[clamp(22px,2.6vw,32px)] leading-[1.1] font-semibold tracking-tight tabular-nums">
+              <span className="block text-[clamp(20px,2.3vw,27px)] leading-none font-semibold tracking-tight tabular-nums">
                 {stat.value}
               </span>
-              <span className="mt-1 block text-[12.5px] text-muted-foreground">
+              <span className="mt-1.5 block text-[13px] leading-snug font-medium text-foreground/70">
                 {stat.label}
               </span>
             </li>

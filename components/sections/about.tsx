@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { about } from "@/app/data/about";
 import { backgroundTrack } from "@/app/data/background";
 import { profile } from "@/app/data/profile";
+import { AboutStatement } from "@/components/about-statement";
 import { BrandMark } from "@/components/brand-marks";
 import { SpineTrack } from "@/components/spine-track";
 import { TestimonialCard } from "@/components/testimonial-card";
@@ -26,7 +27,7 @@ function Elsewhere() {
   return (
     <div>
       <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-        Elsewhere
+        Find me
       </p>
       <div className="-mx-3 mt-2">
         <ItemGroup className="flex-row flex-wrap gap-x-1 gap-y-0">
@@ -102,19 +103,16 @@ export function About() {
         {about.heading}
       </h2>
 
-      {/* The testimonial belongs beside the intro, not the heading. Lifting the
-          heading to full width lets the panel centre against the paragraph +
-          availability block; with the heading still in the column, `items-start`
-          pinned the panel up at the heading, floating above the text it sits
-          next to. Still no `justify-between` — on a wide frame it threw the
-          panel against the right edge with a strip of dead space between; the
-          two stay adjacent and the frame's trailing space reads as the same
-          ragged right the paragraph already has. */}
-      <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-14">
+      {/* The testimonial belongs beside the intro, not the heading, so the
+          heading stays full width and the panel centres against the paragraph +
+          availability block. A `1fr | 26rem` grid keeps the panel pinned to the
+          right edge (aligned with the full-width Background track below) while
+          the justified text column fills everything to its left. The gap between
+          them is the fixed grid gap, so it no longer balloons with the viewport
+          the way `justify-between` did — the text widens, not the empty space. */}
+      <div className="mt-6 flex flex-col gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-center lg:gap-12">
         <div className="min-w-0">
-          <p className="max-w-[52ch] text-[clamp(15px,1.05vw,17px)] leading-relaxed text-muted-foreground">
-            {about.intro}
-          </p>
+          <AboutStatement />
           {/* The availability line moves under the intro now that the
               testimonial card holds the right-hand column. Contact carries the
               same statement, so this is a second instance, not the only one. */}
@@ -127,7 +125,7 @@ export function About() {
             work
           </p>
         </div>
-        <div className="w-full shrink-0 lg:w-[24rem]">
+        <div className="w-full">
           <TestimonialCard />
         </div>
       </div>
@@ -149,11 +147,8 @@ export function About() {
         </div>
       </div>
 
-      <div className="mt-10 flex flex-wrap items-end justify-between gap-x-10 gap-y-6 slides:mt-[clamp(20px,4vh,44px)]">
+      <div className="mt-10 slides:mt-[clamp(20px,4vh,44px)]">
         <Elsewhere />
-        <p className="font-mono text-xs text-muted-foreground/70">
-          {backgroundTrack.certifications}
-        </p>
       </div>
     </section>
   );

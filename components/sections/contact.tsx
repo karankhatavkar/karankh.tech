@@ -21,8 +21,8 @@ export function Contact() {
         Let&rsquo;s talk.
       </h2>
       <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted-foreground">
-        Tell me about your retrieval problem, agent build, or ML pipeline —
-        I&rsquo;ll reply within a day.
+        Tell me what&rsquo;s slowing your team down, and we&rsquo;ll figure out
+        where AI can actually help.
       </p>
       <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
         <Button

@@ -28,9 +28,9 @@ const email = "work.karankh@gmail.com";
 
 export const profile: Profile = {
   name: "Karan Khatavkar",
-  role: "AI/ML Engineer — LLM, NLP & Deep Learning",
-  tagline: "Building LLM apps, agents, and ML models for clients.",
-  bio: "Builds LLM systems for clients — agents, RAG pipelines, and fine-tuned NLP — backed by a deep-learning background in signals and imaging. Available for freelance and contract work.",
+  role: "RAG & Agentic AI Engineer",
+  tagline: "Building RAG systems, AI agents, and AI workflows for clients.",
+  bio: "Builds RAG systems, AI agents, and AI workflows for clients, from scoping through evals to a handover their team can run. Available for freelance and contract work.",
   location: "Pune, India",
   email,
   resumeHref: "/resume.pdf",
