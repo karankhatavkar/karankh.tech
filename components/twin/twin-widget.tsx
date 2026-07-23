@@ -29,6 +29,10 @@ export type TwinMessage = {
   role: "user" | "twin";
   text: string;
   sources?: readonly TwinSource[];
+  /** True for answers streaming live from the backend — their `text` grows as
+   *  tokens arrive, so it's rendered as-is. Answers without this flag are the
+   *  offline fallback (full text at once) and get the reading-pace reveal. */
+  live?: boolean;
 };
 
 /** The pill's rectangle at the moment of send, plus the size the panel will
@@ -201,7 +205,11 @@ function TwinBubble({
               isUser ? "rounded-2xl rounded-br-md" : "rounded-2xl rounded-bl-md"
             )}
           >
-            {isUser ? message.text : <StreamedText text={message.text} />}
+            {isUser || message.live ? (
+              message.text
+            ) : (
+              <StreamedText text={message.text} />
+            )}
           </BubbleContent>
         </Bubble>
 
@@ -256,9 +264,9 @@ function ThinkingBubble() {
   );
 }
 
-/** Reveals a canned reply at reading pace. The answer is written and local, so
- *  this is presentation rather than a fake network call — the `beta` line
- *  under the hero bar is what keeps that honest. */
+/** Reveals a full reply at reading pace. Used only for the offline fallback
+ *  (curated page answers), where the whole string arrives at once — live
+ *  backend answers stream their own text and skip this. */
 function StreamedText({ text }: { text: string }) {
   const reduced = useReducedMotion();
   const [shown, setShown] = React.useState(0);

@@ -15,7 +15,13 @@ import {
 } from "@/components/twin/twin-widget";
 
 const PLACEHOLDER_MS = 3600;
-const THINKING_MS = 550;
+
+// Twin-voice lines for the two guard responses (rate limit / daily budget cap).
+// Copy pending Karan's approval.
+const LIMIT_MESSAGE =
+  "You're going quick — give me a few seconds and ask again.";
+const RESTING_MESSAGE =
+  "My twin's done for the day. Email me at work.karankh@gmail.com and you'll get the real me.";
 
 export function TwinChat() {
   const [barValue, setBarValue] = React.useState("");
@@ -26,12 +32,17 @@ export function TwinChat() {
   const [launch, setLaunch] = React.useState<TwinLaunch | null>(null);
 
   const barRef = React.useRef<HTMLDivElement>(null);
-  const replyTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const abortRef = React.useRef<AbortController | null>(null);
+  /** Latest messages, read synchronously when composing a request so send()
+   *  needn't re-create on every keystroke. */
+  const messagesRef = React.useRef<TwinMessage[]>([]);
 
   React.useEffect(() => {
-    return () => {
-      if (replyTimer.current) clearTimeout(replyTimer.current);
-    };
+    messagesRef.current = messages;
+  }, [messages]);
+
+  React.useEffect(() => {
+    return () => abortRef.current?.abort();
   }, []);
 
   /** The pill keeps its place in the layout while the panel is up, so it can
@@ -58,32 +69,124 @@ export function TwinChat() {
     return () => window.removeEventListener("resize", onResize);
   }, [open, readLaunch]);
 
-  const send = React.useCallback((raw: string) => {
-    const text = raw.trim().slice(0, twin.maxLength);
-    if (!text) return;
-
-    const stamp = Date.now();
-    setMessages((current) => [
-      ...current,
-      { id: `q-${stamp}`, role: "user", text },
-    ]);
-    setThinking(true);
-
-    if (replyTimer.current) clearTimeout(replyTimer.current);
-    replyTimer.current = setTimeout(() => {
-      const answer = findTwinAnswer(text);
-      setThinking(false);
-      setMessages((current) => [
-        ...current,
-        {
-          id: `a-${stamp}`,
-          role: "twin",
-          text: answer.reply,
-          sources: answer.sources,
-        },
-      ]);
-    }, THINKING_MS);
+  const appendDelta = React.useCallback((id: string, delta: string) => {
+    setMessages((current) =>
+      current.map((m) => (m.id === id ? { ...m, text: m.text + delta } : m))
+    );
   }, []);
+
+  /** Adds a finished twin message (a guard line or the offline fallback). No
+   *  `live` flag, so the widget reveals it at reading pace. */
+  const finish = React.useCallback(
+    (id: string, text: string, sources?: TwinMessage["sources"]) => {
+      setThinking(false);
+      setMessages((current) => [...current, { id, role: "twin", text, sources }]);
+    },
+    []
+  );
+
+  /** When the live model can't be reached, answer from the curated page content
+   *  instead of leaving the visitor hanging. */
+  const finishWithFallback = React.useCallback(
+    (history: TwinMessage[], id: string) => {
+      const lastUser = [...history].reverse().find((m) => m.role === "user");
+      const answer = findTwinAnswer(lastUser?.text ?? "");
+      finish(id, answer.reply, answer.sources);
+    },
+    [finish]
+  );
+
+  const streamReply = React.useCallback(
+    async (history: TwinMessage[], id: string) => {
+      abortRef.current?.abort();
+      const controller = new AbortController();
+      abortRef.current = controller;
+
+      let res: Response;
+      try {
+        res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            messages: history.map((m) => ({ role: m.role, text: m.text })),
+          }),
+          signal: controller.signal,
+        });
+      } catch {
+        finishWithFallback(history, id);
+        return;
+      }
+
+      const contentType = res.headers.get("content-type") ?? "";
+      if (!res.ok || !res.body || !contentType.includes("text/event-stream")) {
+        if (res.status === 429) return finish(id, LIMIT_MESSAGE);
+        if (res.status === 503) return finish(id, RESTING_MESSAGE);
+        return finishWithFallback(history, id);
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let started = false;
+
+      try {
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+
+          // SSE frames are separated by a blank line; keep the trailing partial.
+          const frames = buffer.split("\n\n");
+          buffer = frames.pop() ?? "";
+          for (const frame of frames) {
+            const line = frame.trim();
+            if (!line.startsWith("data:")) continue;
+            let event: { delta?: string; done?: boolean; error?: string };
+            try {
+              event = JSON.parse(line.slice(5).trim());
+            } catch {
+              continue;
+            }
+            if (event.delta) {
+              if (!started) {
+                // Swap the thinking dots for a live bubble on the first token.
+                started = true;
+                setThinking(false);
+                setMessages((current) => [
+                  ...current,
+                  { id, role: "twin", text: event.delta ?? "", live: true },
+                ]);
+              } else {
+                appendDelta(id, event.delta);
+              }
+            }
+          }
+        }
+      } catch {
+        // Aborted (new question / unmount) or the connection dropped mid-stream.
+      }
+
+      if (!started) finishWithFallback(history, id);
+    },
+    [appendDelta, finish, finishWithFallback]
+  );
+
+  const send = React.useCallback(
+    (raw: string) => {
+      const text = raw.trim().slice(0, twin.maxLength);
+      if (!text) return;
+
+      const stamp = Date.now();
+      const history: TwinMessage[] = [
+        ...messagesRef.current,
+        { id: `q-${stamp}`, role: "user", text },
+      ];
+      setMessages(history);
+      setThinking(true);
+      void streamReply(history, `a-${stamp}`);
+    },
+    [streamReply]
+  );
 
   /** Sending from the hero takes the pill's rectangle with it — that is what
    *  the panel unfurls from. */

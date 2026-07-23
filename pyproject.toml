@@ -1,0 +1,21 @@
+[project]
+name = "karankh-twin-api"
+version = "0.1.0"
+description = "Karan's digital twin — streaming Gemini backend (Vercel Python function)"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.117",
+    "google-genai>=1.0",
+    "upstash-redis>=1.2",
+    "python-dotenv>=1.0",
+]
+
+# No [build-system]: this is an application, not a distributable package, so uv
+# treats it as a virtual project and never tries to build/install it.
+
+[dependency-groups]
+# Local dev only. Vercel provides its own ASGI server, so uvicorn is not a
+# runtime dependency of the deployed function.
+dev = [
+    "uvicorn>=0.30",
+]

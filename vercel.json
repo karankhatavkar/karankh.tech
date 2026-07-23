@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/chat.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{node_modules/**,.next/**,.git/**,.vercel/**,public/**,assets/**,design/**,app/**,components/**,hooks/**,lib/**,*.md,*.ts,*.tsx,*.mjs,pnpm-lock.yaml,package-lock.json}"
+    }
+  }
+}

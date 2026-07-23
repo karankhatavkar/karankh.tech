@@ -24,8 +24,10 @@ export const twin = {
   /** Sits above the bar as a mono eyebrow. */
   eyebrow: "Ask my twin",
   status: "online",
-  /** Keeps the beta honest: this is curated site content, not a live model. */
-  disclaimer: "beta · answers come from this page, not a live model",
+  /** Keeps the beta honest: it's now a live model (Gemini), and it can be
+   *  wrong — say so plainly. Copy pending Karan's approval. */
+  disclaimer:
+    "beta · you're chatting with Karan's AI twin — it can be wrong, so double-check anything that matters",
   /** Hard cap. The input stops accepting characters here. */
   maxLength: 200,
   /** Cycled in the empty bar. Deliberately not the quick prompts — between
