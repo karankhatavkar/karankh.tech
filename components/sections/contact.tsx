@@ -1,4 +1,5 @@
 import { profile } from "@/app/data/profile";
+import { FindMe } from "@/components/find-me";
 import { Button } from "@/components/ui/button";
 
 // Closing bookend to the hero's "Hello" — the page's second (and last)
@@ -40,32 +41,17 @@ export function Contact() {
           {profile.email}
         </a>
       </div>
-      <ul className="mt-14 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-wider">
-        {/* Email is in profile.socials for the About block; here it would
-            duplicate the prominent mailto link directly above. */}
-        {profile.socials
-          .filter((social) => !social.href.startsWith("mailto:"))
-          .map((social) => (
-            <li key={social.label}>
-              <a
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {social.label} ↗
-              </a>
-            </li>
-          ))}
-        <li>
-          <a
-            href={profile.resumeHref}
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Résumé (PDF)
-          </a>
-        </li>
-      </ul>
+      {/* Same handles-with-logos block as About, so the page closes on one
+          consistent "find me" format. */}
+      <div className="mt-14">
+        <FindMe />
+      </div>
+      <a
+        href={profile.resumeHref}
+        className="mt-6 inline-block font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground"
+      >
+        Résumé (PDF) ↗
+      </a>
     </section>
   );
 }

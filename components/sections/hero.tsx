@@ -3,8 +3,8 @@ import { profile } from "@/app/data/profile";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
+  { label: "Featured", href: "#projects" },
   { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -50,7 +50,7 @@ export function Hero() {
     <div className="relative flex min-h-svh flex-col overflow-hidden">
       <PortraitPlaceholder />
 
-      <header className="relative z-10 flex items-center justify-between gap-6 px-[clamp(24px,4.5vw,56px)] py-6">
+      <header className="relative z-10 flex items-center justify-between gap-6 py-6 pr-[clamp(24px,4.5vw,56px)] pl-[clamp(64px,7vw,110px)]">
         <span className="text-base font-semibold tracking-tight">
           {profile.name}
         </span>
@@ -69,8 +69,8 @@ export function Hero() {
           ))}
         </nav>
         <Button
-          size="sm"
-          className="rounded-full px-4"
+          size="lg"
+          className="rounded-full px-6"
           nativeButton={false}
           render={<a href="#contact" />}
         >
