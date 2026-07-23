@@ -9,38 +9,31 @@ export type Testimonial = {
   href?: string;
 };
 
-// ⚠️ PLACEHOLDER CONTENT — none of these are real. They are deliberately
-// written to *look* unfinished so they cannot ship by accident, while running
-// at roughly the length of a real testimonial so the card's typography and
-// rotation can be judged. Replace wholesale; do not "tidy" them into
-// realistic-sounding quotes with invented names.
-//
-// Two content rules worth keeping when the real ones land:
+// One real testimonial is live; add more as they come in. Two content rules to
+// keep:
 //
 // 1. **Attribution or nothing.** This site's pitch is grounded, citable
 //    answers. An anonymous "Great to work with — Client" contradicts the
 //    argument it sits beside. Real name, real company, ideally a `href` to the
 //    public source.
-// 2. **Three is the floor for rotating.** A two-item loop announces its own
-//    length within eight seconds and reads as padding. The card falls back to a
-//    single static quote below three — see `components/testimonial-card.tsx`.
+// 2. **Three is the floor for rotating.** The card shows one static quote below
+//    three entries and only starts cycling at three or more (see
+//    `components/testimonial-card.tsx`). Add two more real ones to turn the
+//    rotation on.
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Placeholder quote, sized to match a real testimonial — long enough to run two or three lines in the card so the rotation and the type can be judged before the real ones arrive.",
-    author: "Attribution pending",
-    role: "Role · Company",
+      "I’ve enjoyed working with Karan for 1.5 years, and his dedication and positive attitude amaze me.",
+    author: "Edwin Yeong",
+    role: "Amdocs",
   },
-  {
-    quote:
-      "Second placeholder, deliberately a different length from the first so the card can be checked for height jump as it cycles between quotes.",
-    author: "Attribution pending",
-    role: "Role · Company",
-  },
-  {
-    quote:
-      "Third placeholder. Rotation only switches on at three or more, so this entry is what makes the cycling behaviour visible at all.",
-    author: "Attribution pending",
-    role: "Role · Company",
-  },
+  // TEMPLATE — copy this block for each new testimonial, fill it in, uncomment
+  // it, and delete this note. Keep the array at 3+ real entries to turn the
+  // rotation on.
+  // {
+  //   quote: "Their words, two or three sentences.",
+  //   author: "Full Name",
+  //   role: "Role · Company",
+  //   href: "https://link-to-public-source", // optional, but a linked quote is stronger
+  // },
 ];
