@@ -84,6 +84,140 @@ html {
   }
 }
 
+/* Twin chat — the hero's ask bar unfurls into the conversation panel.
+
+   The panel is never a separate object that fades in over the page: it starts
+   as the pill the visitor just typed into and grows out of it. `--twin-fly-*`
+   are written by `TwinWidget` from the pill's measured rectangle, so the two
+   line up exactly whatever the viewport.
+
+   Nothing scales — width and the clip rectangle animate instead — so type and
+   the send button never squash mid-flight. The clip lives on the inner
+   surface, leaving the panel's own box free to hold focus rings.
+
+   Base UI drives the timing: it applies `data-starting-style` on the frame
+   the panel mounts and `data-ending-style` before it leaves, and waits for
+   the transition to finish before unmounting. So both ends of the flight are
+   the same rule, and interrupting an opening panel reverses it cleanly. */
+[data-twin-panel] {
+  /* Defaults are the resting values, so a missing origin degrades to a plain
+     fade instead of flying in from nowhere. */
+  --twin-fly-x: 0px;
+  --twin-fly-y: 0px;
+  --twin-fly-w: var(--twin-panel-w);
+  --twin-fly-h: var(--twin-panel-h);
+  /* Weighted so the panel leaves the pill with intent and settles, rather
+     than arriving so early the travel goes unread. */
+  --twin-fly-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --twin-fly-ms: 520ms;
+
+  width: var(--twin-panel-w);
+  height: var(--twin-panel-h);
+  transform: translate(-50%, -50%);
+  transition:
+    transform var(--twin-fly-ms) var(--twin-fly-ease),
+    width var(--twin-fly-ms) var(--twin-fly-ease),
+    opacity var(--twin-fly-ms) var(--twin-fly-ease);
+}
+
+[data-twin-panel][data-starting-style],
+[data-twin-panel][data-ending-style] {
+  width: var(--twin-fly-w);
+  transform: translate(-50%, -50%)
+    translate(var(--twin-fly-x), var(--twin-fly-y));
+}
+
+/* At rest on the pill only the composer row shows; the conversation above it
+   is clipped away and unrolls upward. The radius travels too, so a pill
+   becomes a panel rather than cutting to one. */
+[data-twin-surface] {
+  clip-path: inset(0 0 0 0 round var(--radius-3xl));
+  transition: clip-path var(--twin-fly-ms) var(--twin-fly-ease);
+}
+
+[data-twin-panel][data-starting-style] [data-twin-surface],
+[data-twin-panel][data-ending-style] [data-twin-surface] {
+  clip-path: inset(
+    calc(100% - var(--twin-fly-h)) 0 0 0 round calc(var(--twin-fly-h) / 2)
+  );
+}
+
+/* The backdrop and the panel's contents only fade. Moving them as well would
+   read as three things happening instead of one. */
+[data-twin-backdrop] {
+  transition: opacity var(--twin-fly-ms) ease-out;
+}
+
+[data-twin-fade] {
+  transition: opacity 260ms ease-out;
+}
+
+[data-twin-fade="late"] {
+  transition-delay: 140ms;
+}
+
+[data-twin-backdrop][data-starting-style],
+[data-twin-backdrop][data-ending-style],
+[data-twin-panel][data-starting-style] [data-twin-fade],
+[data-twin-panel][data-ending-style] [data-twin-fade] {
+  opacity: 0;
+  transition-delay: 0ms;
+}
+
+@keyframes twin-roll {
+  from {
+    transform: translateY(0.7em);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-twin-roll {
+  animation: twin-roll 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes twin-think {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.animate-twin-think {
+  animation: twin-think 1.2s ease-in-out infinite;
+}
+
+/* Reduced motion keeps the widget, drops the travel: the flight overrides are
+   reset to their resting values so nothing moves or resizes, and the panel
+   simply fades in where it belongs. */
+@media (prefers-reduced-motion: reduce) {
+  [data-twin-panel][data-starting-style],
+  [data-twin-panel][data-ending-style] {
+    width: var(--twin-panel-w);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+
+  [data-twin-panel][data-starting-style] [data-twin-surface],
+  [data-twin-panel][data-ending-style] [data-twin-surface] {
+    clip-path: inset(0 0 0 0 round var(--radius-3xl));
+  }
+
+  .animate-twin-roll,
+  .animate-twin-think {
+    animation: none;
+  }
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

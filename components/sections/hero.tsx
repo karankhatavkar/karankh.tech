@@ -1,6 +1,7 @@
 import { hero } from "@/app/data/hero";
 import { profile } from "@/app/data/profile";
 import { Button } from "@/components/ui/button";
+import { TwinChat } from "@/components/twin/twin-chat";
 
 const navLinks = [
   { label: "Featured", href: "#projects" },
@@ -123,7 +124,14 @@ export function Hero() {
           <p className="mt-[clamp(16px,2.4vh,26px)] max-w-[44ch] text-[clamp(14px,1.3vw,17px)] text-muted-foreground">
             {hero.support}
           </p>
-          <div className="mt-[clamp(24px,4vh,40px)]">
+          {/* The low-commitment ask sits ahead of the high-commitment one: a
+              visitor who isn't ready to book a call can still get an answer
+              without leaving the page. */}
+          <div className="mt-[clamp(20px,3.4vh,32px)]">
+            <TwinChat />
+          </div>
+
+          <div className="mt-[clamp(20px,3.4vh,32px)]">
             <Button
               size="lg"
               className="rounded-full px-6"
