@@ -17,5 +17,15 @@ dependencies = [
 # Local dev only. Vercel provides its own ASGI server, so uvicorn is not a
 # runtime dependency of the deployed function.
 dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
     "uvicorn>=0.30",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "live: hits real Gemini + Upstash; opt-in via RUN_LIVE_TESTS=1",
 ]
