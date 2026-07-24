@@ -107,6 +107,8 @@ function FeaturedProjectCard({ project }: { project: FeaturedProject }) {
               href={project.liveHref}
               target="_blank"
               rel="noopener noreferrer"
+              data-track="project_click"
+              data-track-label={`${project.name} · demo`}
             />
           }
         >
@@ -122,6 +124,8 @@ function FeaturedProjectCard({ project }: { project: FeaturedProject }) {
                 href={project.sourceHref}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-track="project_click"
+                data-track-label={`${project.name} · source`}
               />
             }
           >

@@ -21,7 +21,14 @@ pnpm lint     # ESLint
 - [ROADMAP.md](./ROADMAP.md) — phased build plan, what's shipped, what's still open
 - [SEO.md](./SEO.md) — SEO strategy, implementation, and post-deploy checklist
 - [BLOG.md](./BLOG.md) — **how to publish a post**, plus how the writing section works
+- [ANALYTICS.md](./ANALYTICS.md) — what the site measures, the event dictionary, and how to read it
 - [FLOW.md](./FLOW.md) — page-flow direction (scratch/rationale doc)
+
+## Analytics
+
+**Vercel Web Analytics** handles page views (live already); **Umami Cloud** handles the seven custom events, because Vercel only collects those on Pro. To switch the events on: sign up at [cloud.umami.is](https://cloud.umami.is), set `NEXT_PUBLIC_UMAMI_WEBSITE_ID` in Vercel, redeploy.
+
+Full event dictionary, the funnel it measures, and the rules for adding events: [ANALYTICS.md](./ANALYTICS.md).
 
 ## Publishing a post
 

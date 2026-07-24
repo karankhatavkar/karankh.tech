@@ -79,6 +79,7 @@ export function Hero() {
                 href={link.href}
                 className={className}
                 transitionTypes={["nav-forward"]}
+                data-track="writing_opened"
               >
                 {/* This word is the seed of the page it opens: it travels into
                     the blog header's own mark and stays there. Same name on
@@ -94,7 +95,9 @@ export function Hero() {
           size="lg"
           className="rounded-full px-6"
           nativeButton={false}
-          render={<a href="#contact" />}
+          // Scrolls to Contact rather than opening mail, so it is the top of
+          // the funnel, not a conversion. `source` keeps the two separable.
+          render={<a href="#contact" data-track="contact_click" data-track-source="hero" />}
         >
           Book a call ↗
         </Button>

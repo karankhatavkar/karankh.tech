@@ -1,6 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Instrument_Sans } from "next/font/google";
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import { site } from "@/app/data/site";
+import { EventTracking } from "@/components/analytics/event-tracking";
+
+// Inlined at build time, so this must be set in Vercel's env vars before the
+// build that should start reporting — not just at runtime.
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
@@ -77,7 +84,27 @@ export default function RootLayout({
       lang="en"
       className={`${instrumentSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        {/* Page views — the only thing Vercel Web Analytics collects on the
+            Hobby plan. Custom events (see `lib/analytics.ts`) need Pro, so
+            Umami below carries those. */}
+        <Analytics />
+        {/* Umami: cookieless, so no consent banner is required. Rendered only
+            when a website ID is configured, which keeps local development and
+            preview deploys out of the production numbers. */}
+        {umamiWebsiteId && (
+          <Script
+            src={
+              process.env.NEXT_PUBLIC_UMAMI_SRC ??
+              "https://cloud.umami.is/script.js"
+            }
+            data-website-id={umamiWebsiteId}
+            strategy="afterInteractive"
+          />
+        )}
+        <EventTracking />
+      </body>
     </html>
   );
 }

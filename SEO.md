@@ -50,7 +50,7 @@ Everything is statically prerendered (`npm run build` shows all routes `○/●`
 4. **Validate after deploy:**
    - Structured data: [Rich Results Test](https://search.google.com/test/rich-results) and [validator.schema.org](https://validator.schema.org/)
    - Share cards: [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/), [OpenGraph.xyz](https://www.opengraph.xyz/)
-5. **Monitor** — Search Console's Performance report (includes a generative-AI section) monthly; watch the "Karan Khatavkar" query position.
+5. **Monitor** — Search Console's Performance report (includes a generative-AI section) monthly; watch the "Karan Khatavkar" query position. GSC only covers *how you're found*; pair it with [ANALYTICS.md](./ANALYTICS.md) for what happens after someone lands.
 
 ## GitHub link plan (per-repo READMEs)
 

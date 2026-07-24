@@ -35,6 +35,14 @@ export function FindMe() {
                 render={
                   <a
                     href={social.href}
+                    data-track={
+                      // The mailto entry is a contact attempt, not a profile
+                      // visit — counting it as the latter would understate the
+                      // only metric that matters.
+                      external ? "profile_click" : "contact_click"
+                    }
+                    data-track-source={external ? undefined : "find_me"}
+                    data-track-label={external ? social.label : undefined}
                     {...(external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}

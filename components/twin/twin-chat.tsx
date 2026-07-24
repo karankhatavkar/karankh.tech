@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 import { findTwinAnswer, twin } from "@/app/data/twin";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { Button } from "@/components/ui/button";
@@ -181,6 +182,9 @@ export function TwinChat() {
         ...messagesRef.current,
         { id: `q-${stamp}`, role: "user", text },
       ];
+      // Turn number only — never the question itself. What a visitor asks is
+      // their input, and an analytics store is the wrong place for it.
+      trackEvent("twin_message_sent", { turn: history.length });
       setMessages(history);
       setThinking(true);
       void streamReply(history, `a-${stamp}`);

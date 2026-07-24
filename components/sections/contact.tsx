@@ -30,13 +30,21 @@ export function Contact() {
           size="lg"
           className="rounded-full px-6"
           nativeButton={false}
-          render={<a href={`mailto:${profile.email}?subject=Call%20request`} />}
+          render={
+            <a
+              href={`mailto:${profile.email}?subject=Call%20request`}
+              data-track="contact_click"
+              data-track-source="contact_cta"
+            />
+          }
         >
           Book a call ↗
         </Button>
         <a
           href={`mailto:${profile.email}`}
           className="underline-offset-4 hover:underline"
+          data-track="contact_click"
+          data-track-source="email"
         >
           {profile.email}
         </a>
@@ -49,6 +57,7 @@ export function Contact() {
       <a
         href={profile.resumeHref}
         className="mt-6 inline-block font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground"
+        data-track="resume_download"
       >
         Résumé (PDF) ↗
       </a>

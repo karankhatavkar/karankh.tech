@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { blogPostingSchema } from "@/app/data/blog-structured-data";
 import { profile } from "@/app/data/profile";
 import { JsonLd } from "@/components/json-ld";
+import { ReadTracker } from "@/components/analytics/read-tracker";
 import { formatPostDate, getPost, getPostSlugs, lastTouched } from "@/lib/blog";
 import { socialCard } from "@/lib/metadata";
 
@@ -89,6 +90,9 @@ export default async function PostPage({
             and body share one column width. */}
         <div className="max-w-[46rem] pt-10">
           <Body />
+          {/* Sits after the body so it only enters the viewport once the post
+              has actually been scrolled through. */}
+          <ReadTracker slug={post.slug} />
         </div>
       </article>
 
@@ -105,6 +109,8 @@ export default async function PostPage({
           <Link
             href="/#contact"
             className="underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground"
+            data-track="contact_click"
+            data-track-source="post_footer"
           >
             Get in touch
           </Link>

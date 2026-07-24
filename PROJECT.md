@@ -52,7 +52,7 @@ A sticky/section nav with smooth-scroll and scroll-spy is encouraged.
 ## 5. Functional requirements
 
 - **Twin message bar** in the hero (see DESIGN.md). At launch: curated Q&A answered from the page's own content with deep links to sections, honestly labeled "beta". Later phase: live digital twin (RAG over site/résumé/repos) behind the same UI.
-- **Contact form + direct contact.** Form UI built now; **email-delivery backend deferred** — wire a placeholder handler and choose the service (Resend vs Formspree/Web3Forms) before launch. Show email + LinkedIn + GitHub alongside the form.
+- **Contact.** ⚠️ *Reality check, Jul 25, 2026: the form was never built.* `components/sections/contact.tsx` ships `mailto:` links only — the "Book a call" button and the email link both open the visitor's mail client. Email, LinkedIn, GitHub and the résumé are all present, so the section is complete as a contact *block*, but there is no form and no delivery backend. This is the site's main conversion risk: `mailto:` silently does nothing for a visitor with no mail client configured (common on desktop browsers), and a failed click leaves no trace and no lead. See ROADMAP "Still open".
 - **Résumé download** — link to the PDF in `public/`.
 - **SEO/meta** — replace the scaffold's "Create Next App" metadata: real `<title>`, description, Open Graph + Twitter tags, OG image, sitemap, robots, canonical `https://karankh.tech`.
 - **No phone number** displayed anywhere.
@@ -114,7 +114,8 @@ A sticky/section nav with smooth-scroll and scroll-spy is encouraged.
 
 ## 8. Deferred / open
 
-- Contact-form delivery backend (Resend vs Formspree/Web3Forms) — **still open.**
+- Contact form — **still open, and larger than "pick a service":** the form UI doesn't exist either (see §5). Decide whether to build one at all, and if so pick delivery (Resend vs Formspree/Web3Forms).
+- ~~Vercel Analytics~~ — **done Jul 25, 2026:** page views live. Seven custom events are instrumented (contact, résumé, twin, projects, profiles, blog opens, post reads) but **Vercel only collects custom events on Pro** — on Hobby they no-op. Events go to Umami Cloud instead — see [ANALYTICS.md](./ANALYTICS.md). Only the Umami website ID is outstanding.
 - Portrait shoot per the spec in DESIGN.md — **still open** (build runs the placeholder until then).
 - **Publication (MixVal, under review 2026)** — **still open**; add to the site and as `Person.subjectOf` once published.
 - ~~Animation library/approach~~ — **settled:** no library. CSS transitions and native View Transitions (see DESIGN.md).

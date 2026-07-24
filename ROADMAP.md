@@ -82,12 +82,15 @@ Phased build plan for the portfolio. Each phase ends with a **working, deployabl
 
 Carried from the phases above and from PROJECT.md §8 — none of these block anything:
 
-1. **Portrait shoot** — the hero and About still run the abstract placeholder (spec in DESIGN.md).
-2. **Contact delivery backend** — Resend vs Formspree, still undecided.
-3. **"How I build" slide** — deferred at Phase 4; the slot is reserved in FLOW.md.
-4. **Dark-mode toggle** — `.dark` tokens exist, nothing wired.
-5. **Publication (MixVal)** — add to the site and as `Person.subjectOf` once published.
-6. **Repo hygiene** — `pnpm lint` fails repo-wide on ~190 errors from the stray `.claude/worktrees/slide-deck-scroll/` copy; needs an `eslint.config.mjs` ignore. Source itself is clean.
+1. **Contact form** — *the highest-value gap.* Contact ships `mailto:` links only; the form was never built (PROJECT.md §5). `mailto:` does nothing visible for a visitor without a configured mail client, and a failed click leaves no lead and no trace — on a site whose entire job is converting a browsing client into a conversation.
+2. **Umami website ID** — analytics shipped Jul 25, 2026. Page views run on Vercel; the seven custom events run on Umami Cloud, because Vercel only collects those on **Pro** (and keeps just a 1-month window on Hobby). Code is done — all that's left is signing up at cloud.umami.is, setting `NEXT_PUBLIC_UMAMI_WEBSITE_ID` in Vercel, and redeploying. See [ANALYTICS.md](./ANALYTICS.md).
+3. **Portrait shoot** — the hero and About still run the abstract placeholder (spec in DESIGN.md).
+4. **"How I build" slide** — deferred at Phase 4; the slot is reserved in FLOW.md.
+5. **More posts** — the blog pipeline is done; it currently holds one article, which ranks for nothing. Per SEO.md this is the only lever for non-branded queries.
+6. **SEO checklist leftovers** (SEO.md) — Bing Webmaster Tools import, the LinkedIn profile Website field, and post-deploy validation are all still unticked.
+7. **Dark-mode toggle** — `.dark` tokens exist, nothing wired.
+8. **Publication (MixVal)** — add to the site and as `Person.subjectOf` once published.
+9. **Repo hygiene** — `pnpm lint` fails repo-wide on ~190 errors from the stray `.claude/worktrees/slide-deck-scroll/` copy; needs an `eslint.config.mjs` ignore. Source itself is clean. `public/` also still carries the create-next-app SVGs (`next.svg`, `vercel.svg`, `window.svg`, `globe.svg`, `file.svg`).
 
 ## File structure (actual, Jul 25 2026)
 
