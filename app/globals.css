@@ -63,7 +63,11 @@ html {
 }
 
 @media (width >= 64rem) and (height >= 44rem) {
-  html {
+  /* Scoped to pages that actually have slides. The deck lives on `/`, but
+     `scroll-snap-type` has to sit on the scroll container, which is the shared
+     <html>. Without the `:has()` guard it would also apply to `/blog`, where
+     snapping a long article would be actively hostile. */
+  html:has([data-slide]) {
     scroll-snap-type: y mandatory;
   }
 
@@ -81,6 +85,125 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* Route transitions simulate movement across the viewport, which is the
+     most common trigger for motion sensitivity. Zeroing the durations hands
+     back the browser's default — an instant swap — without having to keep a
+     second set of rules in sync. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* Route transition — leaving the deck, entering the reading room.
+
+   The rule the twin panel below sets for this site: a thing that appears
+   grows out of whatever you touched, it never fades in from nowhere. Applied
+   to navigation, that makes the word "Writing" in the hero nav the seed of
+   the page it opens. It carries `view-transition-name: writing-mark` at both
+   ends, so the browser treats the two as one object and moves it into the
+   blog header instead of swapping one word for another.
+
+   Everything else stays quiet. The deck leaves faster than the document
+   arrives — outgoing content shouldn't compete with what you asked for — and
+   the headline lands a beat before the post list so the page reads top-down.
+
+   These rules are the entire feature. Without View Transitions support the
+   navigation just happens, and every element is in the HTML at full opacity
+   either way: nothing here is load-bearing for content being visible. */
+
+::view-transition-group(writing-mark) {
+  /* Same curve and weight as the twin panel's flight, so the two read as one
+     motion system rather than two animations that happen to share a site. */
+  animation-duration: 460ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* The word is sentence-case sans in the nav and mono uppercase on the page.
+   Blurring the crossfade at its midpoint turns that re-set from an
+   interpolation artifact into the point of the move: the word resolves into
+   its page form as it travels. */
+::view-transition-image-pair(writing-mark) {
+  animation: 460ms cubic-bezier(0.32, 0.72, 0, 1) both vt-resolve;
+}
+
+@keyframes vt-resolve {
+  40% {
+    filter: blur(2.5px);
+  }
+}
+
+/* The page itself, keyed off the direction the link declared
+   (`transitionTypes` on the Link). Driven by the transition *type* rather
+   than per-component `enter`/`exit` props: a route change replaces the whole
+   tree, so React never sees an individual element "entering" a surviving
+   parent, and component-level enters never fire. The type is set on the
+   transition itself, so it always applies.
+
+   The document rises on the way in and sinks on the way back, which is the
+   only spatial cue distinguishing "deeper" from "returning". The outgoing
+   page always clears in half the time — it shouldn't compete with what you
+   asked for. */
+/* Base case — every navigation, including the browser's own back and forward
+   buttons. Those carry no transition type (only our Links declare one), so
+   the direction-specific rules below can't be the only thing that animates or
+   a back-button press would swap with no motion at all. */
+::view-transition-old(root) {
+  animation: 180ms ease-in both vt-clear;
+}
+
+::view-transition-new(root) {
+  animation:
+    380ms cubic-bezier(0.32, 0.72, 0, 1) 60ms both vt-rise,
+    300ms ease-out 60ms both vt-ink;
+}
+
+/* Going back up the hierarchy reverses the vertical direction, so returning
+   to the deck feels like retreating rather than advancing again. `nav-back`
+   is declared by the "← Karan Khatavkar" link in the blog header. */
+html:active-view-transition-type(nav-back)::view-transition-old(root) {
+  animation: 180ms ease-in both vt-clear reverse;
+}
+
+html:active-view-transition-type(nav-back)::view-transition-new(root) {
+  animation:
+    380ms cubic-bezier(0.32, 0.72, 0, 1) 60ms both vt-rise reverse,
+    300ms ease-out 60ms both vt-ink;
+}
+
+@keyframes vt-clear {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes vt-rise {
+  from {
+    transform: translateY(16px);
+  }
+}
+
+@keyframes vt-ink {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+/* Used by the blog loading skeleton. Slow and shallow — bars settling like
+   ink soaking in, not a progress shimmer demanding to be watched. */
+@keyframes ink-settling {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }
 

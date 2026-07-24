@@ -10,9 +10,11 @@ Personal portfolio for **Karan Khatavkar**, hosted at **karankh.tech**. This doc
 - **Audience:** prospective clients, hiring managers, collaborators.
 - **Primary CTA:** get in touch (contact form + email/socials).
 
-## 2. Structure — single-page scroll
+## 2. Structure — single-page scroll, plus the blog
 
-One route (`app/page.tsx`) with anchored sections, in order:
+The **home route** (`app/page.tsx`) carries the whole pitch as anchored sections, in order. Since Jul 25, 2026 there is a second area, `/blog` — see [BLOG.md](./BLOG.md) — reached from the "Writing" nav link. It is deliberately the only other route: the home page sells, the blog is what makes the site rank for anything other than Karan's name.
+
+Home sections, in order:
 
 1. **Hero** — reference-layout hero (see [DESIGN.md](./DESIGN.md)): nav, stats row, vertical role rail, oversized "Hello" greeting + one-line RAG-first intro, **twin message bar**, scroll cue, and a B&W portrait bleeding off the right edge. This is the showpiece.
 2. **About** — bento composition from a user-supplied reference (built Jul 14, 2026, see DESIGN.md): niche bio + availability + social handles, a grounding-standard stat card (`100%` grounded answers), portrait slot (B&W shoot pending), open-source proof tile, and two working-style points.
@@ -42,7 +44,7 @@ A sticky/section nav with smooth-scroll and scroll-spy is encouraged.
 
 - **Framework:** Next.js 16, App Router, React 19.2, TypeScript (strict).
 - **Styling:** Tailwind CSS v4 (PostCSS plugin; tokens in `app/globals.css` `@theme`). Dark-only palette defined here.
-- **Content source:** hardcoded in typed TS modules (e.g. `app/data/` or `lib/content.ts`). No CMS, no MDX — content volume is small and static.
+- **Content source:** portfolio content is hardcoded in typed TS modules under `app/data/` — small, static, no CMS. **Blog posts are MDX files in `content/blog/`** *(added Jul 25, 2026 — supersedes the original "no MDX" rule, which was scoped to portfolio content; a blog needs a content pipeline and files-in-git is the one that avoids a database)*. No CMS either way: publishing is a commit, and Vercel's build regenerates the sitemap, feed, and share cards.
 - **Animation:** pick a lightweight approach (CSS + IntersectionObserver, or a small lib like Framer Motion/`motion`) — decide at build time; keep bundle lean.
 - **Analytics:** Vercel Analytics.
 - **Assets:** résumé PDF moves to `public/` for download; favicon/OG image in `public/`.
@@ -112,17 +114,17 @@ A sticky/section nav with smooth-scroll and scroll-spy is encouraged.
 
 ## 8. Deferred / open
 
-- Contact-form delivery backend (Resend vs Formspree/Web3Forms) — choose before launch.
-- Animation library/approach — decide at build time.
-- Typeface: license Aeonik vs free stand-in Instrument Sans (see DESIGN.md).
-- Portrait shoot per the spec in DESIGN.md (build proceeds with placeholder until then).
-- OG/share image design — regenerate in the light style.
-- **Publication (MixVal, under review 2026)** — intentionally omitted for now; add later.
+- Contact-form delivery backend (Resend vs Formspree/Web3Forms) — **still open.**
+- Portrait shoot per the spec in DESIGN.md — **still open** (build runs the placeholder until then).
+- **Publication (MixVal, under review 2026)** — **still open**; add to the site and as `Person.subjectOf` once published.
+- ~~Animation library/approach~~ — **settled:** no library. CSS transitions and native View Transitions (see DESIGN.md).
+- ~~Typeface~~ — **settled:** Instrument Sans via the shadcn preset; Aeonik not licensed.
+- ~~OG/share image design~~ — **done:** generated at build with `ImageResponse` in the light style, and per-post cards for the blog.
 
 ## 9. Out of scope (v1)
 
-- Blog / writing section ("Notes" — planned later phase; nav slot reserved).
-- CMS or MDX content pipeline.
+- ~~Blog / writing section~~ — **shipped Jul 25, 2026** at `/blog` (labelled "Writing" in the nav, not the originally reserved "Notes"). MDX pipeline, sitemap, RSS, `BlogPosting` JSON-LD, per-post OG cards.
+- CMS (a hosted admin UI). Still out — posts are files in git. A git-based CMS such as Keystatic remains an option if the commit flow ever gets in the way.
 - Dark theme / theme toggle (site is light-only now).
 - Live LLM-backed digital twin (later phase; launch ships the curated-Q&A message bar).
 - Multi-language (i18n).

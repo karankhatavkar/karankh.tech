@@ -3,8 +3,12 @@ import { education } from "./education";
 import { profile } from "./profile";
 import { site } from "./site";
 
-const personId = `${site.url}/#person`;
-const websiteId = `${site.url}/#website`;
+// Exported so blog posts can point `author`/`publisher` at the *same* node
+// rather than describing a second, unlinked Karan. Every post then reinforces
+// one Person entity instead of splitting it — the whole basis of the entity-SEO
+// strategy in SEO.md.
+export const personId = `${site.url}/#person`;
+export const websiteId = `${site.url}/#website`;
 
 // Profiles beyond the visible Contact links (which stay email/LinkedIn/GitHub
 // per PROJECT.md) — each corroborates the Person entity for search/AI engines.

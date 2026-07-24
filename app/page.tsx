@@ -7,17 +7,12 @@ import { Slide } from "@/components/sections/slide";
 import { SlideRail } from "@/components/slide-rail";
 import { profile } from "@/app/data/profile";
 import { structuredData } from "@/app/data/structured-data";
+import { JsonLd } from "@/components/json-ld";
 
 export default function Home() {
   return (
     <main className="w-full">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          // Escape "<" so page content can never break out of the script tag.
-          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={structuredData} />
       <SlideRail />
       {/* On a laptop each Slide claims a screen and the page scrolls as a deck;
           on a phone they collapse back to the ordinary continuous page. Every

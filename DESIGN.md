@@ -114,6 +114,35 @@ On a laptop the page scrolls one screen at a time: a wheel flick advances exactl
 
 Verified in headless Chrome at 1280×704, 1440×900 and 1512×800: every slide is exactly one viewport, no overflow. At 390×844 and 768×1024 snapping is `none` and the rail is `display: none`.
 
+## The blog — a reading room, not a slide (built Jul 25, 2026)
+
+`/blog` is the one place the site stops being a deck and becomes a document, and the design says so. It drops the slide frame for a 72rem column with an ordinary continuous scroll, and articles sit in a 46rem reading measure inside it. Header and footer hairlines span the full frame while the text sits narrower — deliberate editorial asymmetry, and consistent between the two.
+
+**Scroll-snap is scoped, not global.** `scroll-snap-type` has to live on the shared `<html>`, so the rule is gated on `html:has([data-slide])`. Without that guard the deck's snapping would apply to `/blog`, where snapping a long article would be actively hostile.
+
+**Article typography lives in `mdx-components.tsx`**, not a Tailwind prose plugin — same semantic tokens and the same mono-label vocabulary as the rest of the site, rather than a generic prose theme sitting alongside the design system. Two details that are easy to get wrong: block code must reset the inline chip's border (`[&>code]:border-0`) or every line of a code block reads as underlined, and inline code needs `box-decoration-clone` or a fragment that wraps across two lines renders as two severed boxes.
+
+## Route transition — the travelling word (built Jul 25, 2026)
+
+The rule this site already set, in the twin panel: *a thing that appears grows out of whatever you touched, it never fades in from nowhere.* Applied to navigation, that makes the word **"Writing" in the hero nav the seed of the page it opens.**
+
+It carries `view-transition-name: writing-mark` in the hero nav and again in the blog header, so the browser reads the two as one object and **moves** it rather than swapping one word for another. It is sentence-case sans in the nav and mono uppercase on the page, so `::view-transition-image-pair` blurs 2.5px at the 40% mark — that turns the re-set from an interpolation artifact into the point of the move: the word resolves into its page form as it travels.
+
+The blog page's own "Writing" eyebrow was **removed** when this landed. With the word arriving in the header, repeating it below made the travel look like duplication rather than movement. One signature, nothing competing with it.
+
+Everything else stays quiet and asymmetric — outgoing content shouldn't compete with what you asked for:
+
+| | |
+|---|---|
+| The word | 460ms, `cubic-bezier(0.32, 0.72, 0, 1)` — same curve and weight as the twin panel's flight, so the two read as one motion system |
+| Old page | 180ms — fades and drifts up 10px, clearing out of the way |
+| New page | 380ms after a 60ms beat — rises 16px as a 4px blur and transparency clear |
+| Going back | the same, vertically reversed, via `nav-back` on the header's back link |
+
+**Reduced motion** zeroes every view-transition duration, handing back the browser's instant swap.
+
+Two things cost real time to discover and are recorded in [CLAUDE.md](./CLAUDE.md): React's per-component `enter`/`exit` props **don't fire on route changes** (a navigation replaces the whole tree, so nothing is "entering" a surviving parent — drive page motion off `transitionTypes` + `:active-view-transition-type()` instead, with an unscoped base rule so the browser's own back/forward buttons still animate); and Chrome **aborts view transitions while the tab is hidden**, which makes them appear broken under browser automation.
+
 ## Below the fold — current state
 
 About (above) → Skills (`Badge`) → Projects (featured `Card` with retrieval-pipeline badges) → More projects (list) → Experience → Education + Certifications → Contact → footer. All on semantic tokens. Section order/refinement (RAG & GenAI first, quiet list with big hover previews, etc.) happens per-step during the build; sections after About still use the sticky mono-label `Section` wrapper. Semantic landmarks, keyboard navigation, `prefers-reduced-motion` fallbacks throughout.

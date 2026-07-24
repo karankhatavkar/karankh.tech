@@ -6,11 +6,12 @@ SEO layer for karankh.tech, researched July 2026. Goal: **win the name query** (
 
 Google's [official AI-search optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) is blunt: AI features in Search run on the same fundamentals as classic Search — indexability, unique people-first content, semantic HTML, structured data for rich results. "GEO/AEO hacks" don't deliver sustainable results.
 
-For a single-page personal portfolio, that translates to three plays:
+For a personal portfolio, that translates to three plays — plus a fourth added Jul 25, 2026 once the site stopped being one page:
 
 1. **Entity SEO.** Make "Karan Khatavkar" an unambiguous entity: `Person` + `ProfilePage` JSON-LD with `sameAs` links to LinkedIn/GitHub, consistent name/role everywhere, canonical URL. This is what drives the name SERP, knowledge-panel eligibility, and AI-answer citations.
 2. **Complete technical hygiene.** Canonical, sitemap, robots, OG/Twitter cards, favicons (Google shows favicons in SERPs — needs ≥48×48), fast static pages. The site is fully prerendered with zero client JS beyond Next's runtime — Core Web Vitals are effectively free.
 3. **AI-crawler openness.** robots.txt allows all crawlers including GPTBot / ClaudeBot / PerplexityBot. Being retrievable is a precondition for being recommended when someone asks an AI "who can build me a RAG pipeline?".
+4. **Published writing** (`/blog`, see [BLOG.md](./BLOG.md)). Plays 1–3 can only win the *name* query — they say who Karan is, not what he knows. Non-branded queries need pages that answer them. Each post is also a `BlogPosting` whose `author` is an `@id` reference to the same Person node, so writing compounds the entity in play 1 instead of splitting it.
 
 ### Rejected tactics (and why)
 
@@ -28,8 +29,13 @@ For a single-page personal portfolio, that translates to three plays:
 | JSON-LD | `app/data/structured-data.ts` → rendered in `app/page.tsx` | `@graph`: `Person` + `WebSite` + `ProfilePage` (Google's recommended pattern for personal sites). Person carries knowsAbout, alumniOf, hasCredential, Pune address, and `sameAs` across LinkedIn, GitHub, Hugging Face, Kaggle, ORCID, Upwork, X, YouTube, Instagram — every profile that corroborates the professional entity |
 | OG/share image | `app/opengraph-image.tsx` (+ `twitter-image.tsx` re-export) | 1200×630, generated at build with `ImageResponse`; dark monochrome card in Geist (Next 16's bundled OG font) matching the site design |
 | Favicons | `app/icon.tsx` (32 + 48 px), `app/apple-icon.tsx` (180 px), `public/favicon.ico` (legacy fallback) | "K" monogram; 48px size satisfies Google's SERP-favicon minimum |
-| Sitemap | `app/sitemap.ts` | Single URL, `lastModified` at build time |
+| Sitemap | `app/sitemap.ts` | Homepage + `/blog` + one entry per post, regenerated every build. `lastmod` comes from content dates (`site.homeUpdated`, post frontmatter), **not** build time — see the note below |
 | Robots | `app/robots.ts` | Allow all (incl. AI crawlers), sitemap pointer |
+| Blog | `content/blog/*.mdx` → `/blog`, `/blog/[slug]` | Per-post `BlogPosting` JSON-LD whose `author`/`publisher` are `@id` references to the homepage's Person node, so every article compounds the same entity instead of creating a second one. Per-post OG card, `article:published_time`/`modified_time`, canonical |
+| RSS | `app/blog/feed.xml/route.ts` | `force-static`, linked from the index's `alternates.types` |
+| Social cards | `lib/metadata.ts` | `socialCard()` — Next *replaces* rather than merges `openGraph`/`twitter` per route, so pages that set them by hand silently lose `summary_large_image` and `@creator` |
+
+> **`lastmod` honesty.** It used to be `new Date()`, which told Google the homepage changed on every deploy — including deploys that only touched CSS. Google honours `lastmod` only while it stays accurate, and a feed that cries wolf gets the signal discounted **site-wide**, including for posts where it actually matters. Bump `site.homeUpdated` when homepage copy changes; posts use `updated ?? date` from frontmatter.
 
 Everything is statically prerendered (`npm run build` shows all routes `○/●`), so metadata is in the initial HTML for every crawler — no streaming-metadata concerns.
 
@@ -86,6 +92,8 @@ Built by **[Karan Khatavkar](https://karankh.tech)** — AI/ML engineer (LLM, RA
 
 ## Future levers (when ready to invest more)
 
-- **Content is the only way to rank for non-branded queries** ("freelance RAG developer", "LLM consultant"). Project case-study pages or short write-ups would target those; AI Overviews strongly favor sources updated within ~6 months. (Blog is out of scope for v1 per PROJECT.md.)
+- **Content is the only way to rank for non-branded queries** ("freelance RAG developer", "LLM consultant"). The `/blog` pipeline shipped Jul 25, 2026 — the infrastructure is done, so this lever is now purely a question of writing. AI Overviews strongly favour sources updated within ~6 months, which argues for a steady trickle over a burst.
+  - Depth beats volume: a handful of posts drawn from work actually shipped (the multi-turn context-loss fix, BM25 hybrid-weight tuning, dynamic chunking) will outrank a pile of generic "What is RAG?" explainers, and they double as sales collateral. Thin, scaled content is explicitly against Google's policies — see "Rejected tactics" above.
+  - **After publishing the first few posts:** request indexing for each in Search Console. Google picks up the rest from the sitemap on its own schedule. Don't reach for the Indexing API — it's officially limited to `JobPosting` and `BroadcastEvent`.
 - **Publication (MixVal)** — once published, add it to the site and as `Person.subjectOf`/`author` markup; academic citations are strong E-E-A-T signals.
 - Keep `lastModified`/content fresh: rebuild+redeploy on every content change (sitemap date updates automatically).

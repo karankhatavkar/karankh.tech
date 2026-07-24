@@ -62,23 +62,52 @@ Phased build plan for the portfolio. Each phase ends with a **working, deployabl
 
 **Outcome:** **live.** 🚀
 
+## Phase 6 — Writing / blog (shipped Jul 25, 2026)
+
+**Goal:** the one lever that can rank the site for anything besides Karan's name.
+
+- MDX pipeline: `content/blog/*.mdx`, frontmatter as the single source of truth, `lib/blog.ts` as the only reader. No database, no CMS — publishing is a commit.
+- `/blog` index + `/blog/[slug]`, "Writing" in the hero nav.
+- SEO: sitemap entries per post, RSS, `BlogPosting` JSON-LD referencing the existing Person node, per-post OG cards.
+- Fixed the sitemap's `lastModified: new Date()`, which claimed the homepage changed on every deploy.
+- Route transition: the nav word travels into the blog header (see [DESIGN.md](./DESIGN.md)).
+
+**Outcome:** one file and one commit publishes a post; everything else is derived. Full detail in [BLOG.md](./BLOG.md). ✅ Deployable.
+
 ---
 
 **Cadence:** build a phase → review → proceed.
 
-## Proposed file structure (target)
+## Still open
+
+Carried from the phases above and from PROJECT.md §8 — none of these block anything:
+
+1. **Portrait shoot** — the hero and About still run the abstract placeholder (spec in DESIGN.md).
+2. **Contact delivery backend** — Resend vs Formspree, still undecided.
+3. **"How I build" slide** — deferred at Phase 4; the slot is reserved in FLOW.md.
+4. **Dark-mode toggle** — `.dark` tokens exist, nothing wired.
+5. **Publication (MixVal)** — add to the site and as `Person.subjectOf` once published.
+6. **Repo hygiene** — `pnpm lint` fails repo-wide on ~190 errors from the stray `.claude/worktrees/slide-deck-scroll/` copy; needs an `eslint.config.mjs` ignore. Source itself is clean.
+
+## File structure (actual, Jul 25 2026)
 
 ```
 app/
-  layout.tsx            # fonts, metadata, <Analytics/>, global bg/grain
-  page.tsx              # composes sections in order
-  globals.css           # dark-only tokens, type scale, grain/gradient utilities
-  data/                 # typed content (profile, skills, projects, experience, education, certifications)
-  actions/contact.ts    # 'use server' — validates (zod), stubbed delivery
-  components/
-    sections/           # Hero, About, Skills, Projects, Experience, Education, Certifications, Contact
-    ui/                 # Section, Reveal, Nav, SocialLinks, SubmitButton, Grain
-public/
-  resume.pdf            # moved from assets/Resume_2-3.pdf
-  + favicon, og image
+  layout.tsx                    root metadata, fonts, <html>/<body>
+  page.tsx                      composes the deck
+  globals.css                   light tokens, slide mode, twin panel, route transitions
+  data/                         typed content + JSON-LD builders
+  blog/                         the writing section — see BLOG.md
+  sitemap.ts robots.ts          SEO routes
+  opengraph-image.tsx icon.tsx apple-icon.tsx twitter-image.tsx
+components/
+  sections/                     Hero, About, Depth, Projects, Contact, Section, Slide
+  twin/                         the digital-twin chat
+  ui/                           shadcn-managed — regenerate, don't hand-edit
+  json-ld.tsx slide-rail.tsx spine-track.tsx brand-marks.tsx …
+content/blog/*.mdx              posts
+lib/                            blog.ts, metadata.ts, utils.ts
+mdx-components.tsx              article typography (required by @next/mdx)
+api/*.py                        the twin's FastAPI backend (Vercel Python functions)
+public/                         resume.pdf, favicon
 ```

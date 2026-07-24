@@ -1,11 +1,16 @@
+import { ViewTransition } from "react";
+import Link from "next/link";
 import { hero } from "@/app/data/hero";
 import { profile } from "@/app/data/profile";
 import { Button } from "@/components/ui/button";
 import { TwinChat } from "@/components/twin/twin-chat";
 
+// Hash entries scroll within the deck; "/blog" is a real route, so it gets
+// next/link for prefetching (see the nav below).
 const navLinks = [
   { label: "Featured", href: "#projects" },
   { label: "About", href: "#about" },
+  { label: "Writing", href: "/blog" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -59,15 +64,31 @@ export function Hero() {
           aria-label="Site"
           className="hidden gap-[clamp(16px,2.6vw,34px)] text-sm text-muted-foreground sm:flex"
         >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const className = "transition-colors hover:text-foreground";
+
+            // Plain <a> for in-page anchors so the CSS smooth-scroll handles
+            // them; next/link for the route so it prefetches the static shell.
+            return link.href.startsWith("#") ? (
+              <a key={link.href} href={link.href} className={className}>
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={className}
+                transitionTypes={["nav-forward"]}
+              >
+                {/* This word is the seed of the page it opens: it travels into
+                    the blog header's own mark and stays there. Same name on
+                    both ends is the whole mechanism — see `app/globals.css`. */}
+                <ViewTransition name="writing-mark">
+                  <span>{link.label}</span>
+                </ViewTransition>
+              </Link>
+            );
+          })}
         </nav>
         <Button
           size="lg"
