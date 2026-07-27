@@ -54,7 +54,7 @@ function PortraitPlaceholder() {
 export function Hero() {
   return (
     <div className="relative flex min-h-svh flex-col overflow-hidden">
-      <PortraitPlaceholder />
+      {/* <PortraitPlaceholder /> */}
 
       <header className="relative z-10 flex items-center justify-between gap-6 py-6 pr-[clamp(24px,4.5vw,56px)] pl-[clamp(64px,7vw,110px)]">
         <span className="text-base font-semibold tracking-tight">
