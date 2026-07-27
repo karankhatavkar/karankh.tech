@@ -1,0 +1,77 @@
+---
+title: "LangGraph validates your state exactly once"
+description: "A Pydantic state schema feels like it protects every LangGraph node. It only checks the first one. Here's what has to cover the rest."
+date: 2026-07-27
+tags: [agents, langgraph, pydantic]
+---
+
+Give your LangGraph state a Pydantic model and the natural assumption is that you've solved data safety for the whole graph. Every node takes the model as input, every node hands one back, so every hop between nodes should be checked too.
+
+It isn't. LangGraph validates the state once, on the input to the first node. The docs say so directly, under known limitations: run-time validation only occurs on inputs to the first node in the graph, not on subsequent nodes or outputs. Past that first hop, a node can return whatever shape it wants and nothing in the framework stops it.
+
+## Where that actually bites you
+
+Take a three-node graph: `plan`, `research`, `write`. `research` calls a tool to look up a price, and on one response the model formats it as the string `"$19.99"` instead of a float. Nothing catches it there. `research` returns its state, LangGraph threads it straight through to `write`, because the only door it checked was the one into `plan`.
+
+`write` does `f"{state.price * 1.15:.2f}"` and the run dies with a `TypeError`. The traceback points at `write`. `write` did nothing wrong. The bad value was born one node earlier, in the one place the type system never actually looked.
+
+## Two boundaries, two different jobs
+
+LangGraph owns exactly one boundary: the graph's front door. It decides which node runs next, threads state through conditional edges, checkpoints a run so it can resume. None of that requires re-validating state on every hop, and asking it to would mean asking a router to also be a linter.
+
+The boundary you actually need sits somewhere else: inside each node, around the one call where the shape of the output is genuinely unpredictable, which is the LLM's response. That's what `pydantic-ai` (the agent library, not just the `BaseModel` import) is for. Wrap the call in an `Agent` with an `output_type`, and a malformed response never reaches your code. It goes back to the model with the validation error attached, and the model gets another attempt before your node sees a value at all.
+
+```
+  START ──▶ plan ──▶ research ──▶ write ──▶ END
+    ▲
+    └── the only arrow LangGraph actually checks
+
+
+  Inside every node:
+
+       state in
+          │
+          ▼
+  ┌─────────────────────────────┐
+  │ 1. call the LLM             │
+  │    via pydantic_ai.Agent    │───▶ bad shape retries
+  │    (output_type=Model)      │     against the model
+  └─────────────────────────────┘
+                 │
+                 ▼
+  ┌─────────────────────────────┐
+  │ 2. build the return         │
+  │    GraphState(**{...})      │───▶ bad shape raises
+  │    not a bare dict          │     here, not 3 nodes down
+  └─────────────────────────────┘
+                 │
+                 ▼
+            state out
+```
+
+```python
+from pydantic import BaseModel
+from pydantic_ai import Agent
+
+class PriceLookup(BaseModel):
+    price: float
+    currency: str
+
+pricer = Agent("openai:gpt-4o-mini", output_type=PriceLookup)
+
+async def research(state: GraphState) -> GraphState:
+    result = await pricer.run(state.query)  # retries itself on a bad shape
+    return GraphState(**{**state.model_dump(), "price": result.output.price})
+```
+
+Two boundaries are doing work in that function. `output_type=PriceLookup` is the first: by the time `result.output.price` is read, it is guaranteed to be a `float`. `GraphState(**{...})` is the second, and it's the one people skip. Building the return value through the state model's own constructor, instead of a bare dict, means a typo'd key or a wrong type raises inside `research`, where it happened, instead of surfacing three nodes later as someone else's bug.
+
+## The part that decides whether it's worth doing
+
+The retry isn't free or infinite. `pydantic-ai` defaults to one retry per output, configurable through the agent's `retries` parameter, and once that budget runs out it raises `UnexpectedModelBehavior` instead of handing you something invalid. That's the right failure mode, an explicit exception instead of a silently wrong price, but it does mean a validation failure costs you a second model call before you find out. Worth logging on its own, separate from your regular error rate, so you can see how often a node is actually hitting that retry path instead of assuming it's zero.
+
+And don't reach for this everywhere. A routing node that reads one boolean off the state and picks an edge has nothing worth validating; wrapping it anyway is ceremony that slows down a review without catching anything. Save the pattern for the handful of nodes in a graph that actually touch something outside your type system: an LLM call, a tool call, an external API. That's usually two or three nodes, not all of them.
+
+---
+
+If you're building a multi-agent pipeline and want a second pair of eyes on where the validation boundaries actually sit, [get in touch](/#contact).
