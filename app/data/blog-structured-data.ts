@@ -9,6 +9,18 @@ export function postUrl(slug: string): string {
 }
 
 /**
+ * Posts are authored with a plain `YYYY-MM-DD` date (no time-of-day is
+ * tracked). A bare date is valid ISO 8601, but Google's structured-data
+ * parser wants a full datetime with a timezone offset and flags anything
+ * short of that as invalid — so pin the unknown time-of-day to midnight UTC
+ * rather than emit a date it can't parse. Same convention the RSS feed's
+ * `rfc822()` helper already uses on the same underlying strings.
+ */
+function toIsoDateTime(date: string): string {
+  return `${date}T00:00:00Z`;
+}
+
+/**
  * `BlogPosting` for a single post. `author` and `publisher` are `@id`
  * references into the Person node the homepage already publishes, so search
  * and AI engines read every article as more evidence for one entity rather
@@ -25,10 +37,8 @@ export function blogPostingSchema(post: Post) {
     mainEntityOfPage: url,
     headline: post.title,
     description: post.description,
-    // Dates are authored as plain YYYY-MM-DD; schema.org wants ISO 8601, and
-    // a bare date is valid ISO 8601.
-    datePublished: post.date,
-    dateModified: lastTouched(post),
+    datePublished: toIsoDateTime(post.date),
+    dateModified: toIsoDateTime(lastTouched(post)),
     author: { "@id": personId },
     publisher: { "@id": personId },
     isPartOf: { "@id": blogId },
@@ -57,7 +67,7 @@ export function blogSchema(posts: Post[]) {
       "@id": `${postUrl(post.slug)}#post`,
       url: postUrl(post.slug),
       headline: post.title,
-      datePublished: post.date,
+      datePublished: toIsoDateTime(post.date),
     })),
   };
 }
