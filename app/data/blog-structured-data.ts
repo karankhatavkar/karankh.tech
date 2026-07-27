@@ -1,4 +1,5 @@
 import { site } from "./site";
+import { profile } from "./profile";
 import { personId, websiteId } from "./structured-data";
 import { lastTouched, type Post } from "@/lib/blog";
 
@@ -6,6 +7,20 @@ export const blogId = `${site.url}/#blog`;
 
 export function postUrl(slug: string): string {
   return `${site.url}/blog/${slug}`;
+}
+
+/**
+ * A blog post's `author`/`publisher` and the homepage's `Person` node live in
+ * separate documents, so a per-page structured-data parser (Google's Rich
+ * Results Test included) never crosses pages to resolve a bare `@id`
+ * reference the way Google's own Knowledge Graph does over time. Keeping the
+ * `@id` is still what ties every post back to the *same* entity; inlining
+ * `name`/`url` alongside it just makes this document self-sufficient too,
+ * rather than dropping the reference and describing a second, unlinked
+ * Karan.
+ */
+function personRef() {
+  return { "@id": personId, name: profile.name, url: site.url };
 }
 
 /**
@@ -20,12 +35,7 @@ function toIsoDateTime(date: string): string {
   return `${date}T00:00:00Z`;
 }
 
-/**
- * `BlogPosting` for a single post. `author` and `publisher` are `@id`
- * references into the Person node the homepage already publishes, so search
- * and AI engines read every article as more evidence for one entity rather
- * than as an orphaned document.
- */
+/** `BlogPosting` for a single post. */
 export function blogPostingSchema(post: Post) {
   const url = postUrl(post.slug);
 
@@ -39,8 +49,8 @@ export function blogPostingSchema(post: Post) {
     description: post.description,
     datePublished: toIsoDateTime(post.date),
     dateModified: toIsoDateTime(lastTouched(post)),
-    author: { "@id": personId },
-    publisher: { "@id": personId },
+    author: personRef(),
+    publisher: personRef(),
     isPartOf: { "@id": blogId },
     image: `${url}/opengraph-image`,
     keywords: post.tags.join(", "),
@@ -58,8 +68,8 @@ export function blogSchema(posts: Post[]) {
     name: `Writing — ${site.name}`,
     description:
       "Field notes on building RAG systems, AI agents, and AI workflows that survive production.",
-    author: { "@id": personId },
-    publisher: { "@id": personId },
+    author: personRef(),
+    publisher: personRef(),
     isPartOf: { "@id": websiteId },
     inLanguage: "en",
     blogPost: posts.map((post) => ({
