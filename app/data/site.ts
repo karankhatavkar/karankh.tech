@@ -21,7 +21,7 @@ export const site = {
    * stays accurate, and a feed that cries wolf gets the signal ignored
    * site-wide — including for posts, where it actually matters.
    */
-  homeUpdated: "2026-07-24",
+  homeUpdated: "2026-07-27",
   /** Attribution on every X/Twitter card. */
   twitterHandle: "@KhatavkarKaran",
 } as const;
