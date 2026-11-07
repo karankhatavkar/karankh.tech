@@ -38,7 +38,7 @@ export const spine: SpineNode[] = [
     label: "AI Research Engineer",
     claim:
       "Full-time on RAG systems and AI agents: researching what works, building it, and wiring in evals that show whether it actually does.",
-    place: "AI Research Engineer · Pune",
+    place: "AI Research Engineer · Aeronsystems · Pune",
     chips: ["RAG", "AI agents", "LangGraph", "evals", "agent guardrails"],
   },
   {

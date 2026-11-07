@@ -34,6 +34,7 @@ export const structuredData = {
       alternateName: "karankhatavkar",
       url: site.url,
       jobTitle: "AI Research Engineer",
+      worksFor: { "@type": "Organization", name: "Aeronsystems" },
       description: profile.bio,
       email: profile.email,
       address: {
