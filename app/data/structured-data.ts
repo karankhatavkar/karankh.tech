@@ -16,7 +16,6 @@ const extraProfiles = [
   "https://huggingface.co/karankhatavkar",
   "https://www.kaggle.com/devkarankh",
   "https://orcid.org/0009-0008-0175-5970",
-  "https://www.upwork.com/freelancers/karankh",
   "https://x.com/KhatavkarKaran",
   "https://www.youtube.com/@dev_brew",
   "https://www.instagram.com/dev_brew/",
@@ -34,7 +33,7 @@ export const structuredData = {
       name: profile.name,
       alternateName: "karankhatavkar",
       url: site.url,
-      jobTitle: "AI/ML Engineer",
+      jobTitle: "AI Research Engineer",
       description: profile.bio,
       email: profile.email,
       address: {
@@ -49,6 +48,7 @@ export const structuredData = {
       knowsAbout: [
         "Large Language Models",
         "Retrieval-Augmented Generation",
+        "AI Agents",
         "LangChain",
         "Natural Language Processing",
         "Deep Learning",
@@ -57,6 +57,7 @@ export const structuredData = {
         "Transformers",
         "Machine Learning",
         "Signal Processing",
+        "Sensor Data",
       ],
       alumniOf: education.map((entry) => ({
         "@type": "CollegeOrUniversity",

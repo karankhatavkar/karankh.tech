@@ -101,9 +101,9 @@ export default async function PostPage({
           {profile.role}
         </p>
         <p className="mt-4 text-[15px] leading-[1.7] text-foreground/85">
-          I&apos;m {profile.name.split(" ")[0]} — I build RAG systems and AI
-          agents for clients, from scoping through evals to a handover their
-          team can run.
+          I&apos;m {profile.name.split(" ")[0]}, an AI research engineer. I
+          build RAG systems and AI agents, with evals that show whether they
+          actually work.
         </p>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs">
           <Link

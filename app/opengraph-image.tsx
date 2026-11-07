@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { profile } from "@/app/data/profile";
 
 export const alt =
-  "Karan Khatavkar — AI/ML Engineer. Building LLM apps, agents, and ML models for clients.";
+  "Karan Khatavkar — AI Research Engineer. Building RAG systems and AI agents.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -82,7 +82,7 @@ export default function OpenGraphImage() {
           <div style={{ display: "flex", color: "#0a0a0a" }}>karankh.tech</div>
           <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
             <div style={{ display: "flex", color: "#737373" }}>
-              Open to freelance &amp; contract
+              Based in Pune
             </div>
             <div
               style={{

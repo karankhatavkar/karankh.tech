@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "LangChain",
     "NLP",
     "deep learning",
-    "freelance machine learning engineer",
+    "AI research engineer",
   ],
   openGraph: {
     type: "profile",

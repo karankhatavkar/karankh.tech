@@ -1,7 +1,7 @@
 
 # karankh.tech
 
-Personal portfolio of **[Karan Khatavkar](https://karankh.tech)** — AI/ML engineer (LLM, RAG & NLP), open to freelance & contract work.
+Personal portfolio of **[Karan Khatavkar](https://karankh.tech)** — AI Research Engineer (RAG, AI agents & ML).
 
 Light-editorial, typography-led site: a single-page pitch that reads as a deck, plus a writing section at [/blog](https://karankh.tech/blog). Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, and shadcn/ui (Base UI). Deployed on Vercel at [karankh.tech](https://karankh.tech).
 

@@ -1,6 +1,6 @@
 # SEO — strategy & implementation
 
-SEO layer for karankh.tech, researched July 2026. Goal: **win the name query** ("Karan Khatavkar"), look sharp when shared (LinkedIn especially), and be **citable by AI engines** (ChatGPT, Perplexity, Google AI Overviews) — the channels prospective freelance clients actually use.
+SEO layer for karankh.tech, researched July 2026. Goal: **win the name query** ("Karan Khatavkar"), look sharp when shared (LinkedIn especially), and be **citable by AI engines** (ChatGPT, Perplexity, Google AI Overviews) — the channels recruiters, collaborators and peers actually use.
 
 ## Strategy (what the research says works in 2026)
 
@@ -63,11 +63,11 @@ GitHub marks README links `rel="nofollow"`, so the value is **entity corroborati
 ```markdown
 ## Author
 
-Built by **[Karan Khatavkar](https://karankh.tech)** — AI/ML engineer (LLM, RAG & NLP), open to freelance & contract work.
+Built by **[Karan Khatavkar](https://karankh.tech)** — AI Research Engineer (RAG, AI agents & ML).
 ```
 
 ```markdown
-> Built by [Karan Khatavkar](https://karankh.tech) — AI/ML engineer, open to freelance & contract work.
+> Built by [Karan Khatavkar](https://karankh.tech) — AI Research Engineer (RAG, AI agents & ML).
 ```
 
 | Repo | Template | Placement | Status |

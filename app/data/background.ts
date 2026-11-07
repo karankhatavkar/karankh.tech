@@ -9,8 +9,8 @@ export type SpineNode = {
   range: string;
   /** The single live stop. Badges as `NOW` with a pulse, and anchors the whole
    *  track's "you are here" so the rest reads as steps back from it. The Master's
-   *  runs alongside the freelance work, and Sisai overlaps the MIT-WPU degree;
-   *  only the headline present activity (freelance) badges as NOW. */
+   *  runs alongside the current role, and Sisai overlaps the MIT-WPU degree;
+   *  only the headline present activity (the current role) badges as NOW. */
   now?: boolean;
   /** One-word concept — the mono kicker beside the year. */
   kicker: string;
@@ -27,19 +27,19 @@ export type SpineNode = {
 // The spine, newest first, on a dated axis: the start year leads each stop and
 // the track header labels the direction (Now → Earlier). Experience + Education
 // collapse into these five stops: capability is the headline, the résumé entry
-// is the footnote. The timing chains MIT-WPU → Amdocs → Master's → freelance,
+// is the footnote. The timing chains MIT-WPU → Amdocs → Master's → current role,
 // with Sisai and the Master's overlapping their neighbours.
 export const spine: SpineNode[] = [
   {
     year: "2026",
-    range: "April 2026 – Now",
+    range: "Oct 2026 – Now",
     now: true,
-    kicker: "Freelance",
-    label: "RAG, agents & AI workflows",
+    kicker: "Research",
+    label: "AI Research Engineer",
     claim:
-      "Building RAG systems, AI agents, and AI workflows for clients. I take each one from scoping through evals to a handover the team can run without me.",
-    place: "Independent · Pune",
-    chips: ["LangGraph", "evals", "handover", "agent guardrails"],
+      "Full-time on RAG systems and AI agents: researching what works, building it, and wiring in evals that show whether it actually does.",
+    place: "AI Research Engineer · Pune",
+    chips: ["RAG", "AI agents", "LangGraph", "evals", "agent guardrails"],
   },
   {
     year: "2025",

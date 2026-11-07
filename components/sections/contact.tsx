@@ -13,7 +13,7 @@ export function Contact() {
     >
       <p className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.28em] text-muted-foreground">
         <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden />
-        Available for freelance &amp; contract
+        Open to conversations
       </p>
       <h2
         id="contact-heading"
@@ -22,8 +22,8 @@ export function Contact() {
         Let&rsquo;s talk.
       </h2>
       <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted-foreground">
-        Tell me what&rsquo;s slowing your team down, and we&rsquo;ll figure out
-        where AI can actually help.
+        Working on RAG, agents, or ML on messy real-world data? I&rsquo;m
+        always happy to compare notes.
       </p>
       <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
         <Button

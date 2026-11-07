@@ -43,7 +43,7 @@ export const twin = {
   quickPrompts: [
     "How do you stay grounded?",
     "What have you shipped?",
-    "Are you available?",
+    "What do you do now?",
   ],
   panelTitle: "Karan's twin",
   panelDescription:
@@ -71,9 +71,9 @@ export const twinAnswers: TwinAnswer[] = [
   },
   {
     id: "availability",
-    match: ["available", "availability", "hire", "hiring", "freelance", "contract", "free", "work with", "rate"],
+    match: ["what do you do", "current", "role", "job", "available", "availability", "hire", "hiring", "freelance", "contract", "free", "work with", "rate"],
     reply:
-      "Yes, I'm taking on RAG and agent builds. They're usually scoped the same way: build it, evaluate it, then hand it over so your team can run it without me. Email is the fastest way to reach me.",
+      "I'm working full-time as an AI research engineer, so I'm not taking on freelance builds. I'm always happy to talk RAG, agents, or anything on this page, though. Email is the best way to reach me.",
     sources: [CONTACT],
   },
   {
@@ -108,7 +108,7 @@ export const twinAnswers: TwinAnswer[] = [
     id: "background",
     match: ["background", "study", "studied", "degree", "master", "masters", "education", "gpa", "experience", "years"],
     reply:
-      "A master's in AI at 9.6 GPA, and three-plus years shipping AI work alongside and since. The academic half is why I reach for evaluation first; the shipping half is why I don't stop there.",
+      "I'm an AI research engineer now, with a master's in AI at 9.6 GPA and three-plus years shipping AI work, starting with sensor data and moving into RAG and agents. The academic half is why I reach for evaluation first; the shipping half is why I don't stop there.",
     sources: [ABOUT, DEPTH],
   },
 ];

@@ -119,7 +119,11 @@ The deck today is the **interim flow** above — five slides, one short of targe
 
 ## Goal lens
 
-Everything below is judged against one goal: **win freelance/contract LLM & RAG
+> **Nov 2026:** the freelance goal below is retired. The site now presents Karan
+> as a full-time AI Research Engineer; résumé and "book a call" are removed.
+> The layout rationale still holds; read "client" as "visitor".
+
+Everything below was judged against one goal: **win freelance/contract LLM & RAG
 work.** A visitor is a potential client, not a recruiter reading a CV.
 
 ## Prior flow (what the decision above replaces)

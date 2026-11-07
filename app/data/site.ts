@@ -4,13 +4,13 @@ export const site = {
   url: "https://karankh.tech",
   name: "Karan Khatavkar",
   // ≤60 chars so Google doesn't truncate it in search results.
-  title: "Karan Khatavkar · RAG & Agentic AI Engineer",
+  title: "Karan Khatavkar · AI Research Engineer",
   // ~150 chars — full length for the Google SERP snippet.
   description:
-    "Karan Khatavkar is a RAG and agentic AI engineer building RAG systems, AI agents, and AI workflows for clients. Open to freelance and contract work.",
+    "Karan Khatavkar is an AI research engineer in Pune building RAG systems and AI agents, with an ML background in NLP, imaging, and sensor data.",
   // ≤125 chars — social cards truncate earlier than search snippets.
   socialDescription:
-    "RAG & agentic AI engineer building RAG systems, AI agents, and AI workflows for clients. Open to freelance and contract work.",
+    "AI research engineer building RAG systems and AI agents, with an ML background in NLP, imaging, and sensor data.",
   /**
    * Last substantive change to the homepage's *content*, as `YYYY-MM-DD`.
    * Bump it by hand when you edit copy, projects, or experience.
@@ -21,7 +21,7 @@ export const site = {
    * stays accurate, and a feed that cries wolf gets the signal ignored
    * site-wide — including for posts, where it actually matters.
    */
-  homeUpdated: "2026-07-27",
+  homeUpdated: "2026-11-07",
   /** Attribution on every X/Twitter card. */
   twitterHandle: "@KhatavkarKaran",
 } as const;

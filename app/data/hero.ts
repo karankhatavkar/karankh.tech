@@ -9,7 +9,7 @@ export type ExpertiseSegment = {
 };
 
 export const hero = {
-  rail: "RAG & Agentic AI Engineer",
+  rail: "AI Research Engineer",
   year: "2026",
   greeting: "Hey, I’m Karan.",
   // Second display deck — key terms in full ink, connective words muted.
@@ -20,7 +20,7 @@ export const hero = {
     { text: "AI agents.", muted: false },
   ] satisfies ExpertiseSegment[],
   support:
-    "Built, evaluated, and handed over so your team can run it without me.",
+    "Grounded in real sources, evaluated properly, and built to hold up with real users.",
   // Honest, content-driven numbers — update as facts change (DESIGN.md).
   stats: [
     { value: "3+", label: "yrs shipping AI" },

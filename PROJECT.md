@@ -6,7 +6,7 @@ Personal portfolio for **Karan Khatavkar**, hosted at **karankh.tech**. This doc
 
 ## 1. Goal & audience
 
-- **Primary goal:** win **freelance / contract LLM & ML work**.
+- **Primary goal:** present Karan as a **full-time AI Research Engineer** (RAG, agents, ML; freelance positioning retired Nov 2026).
 - **Audience:** prospective clients, hiring managers, collaborators.
 - **Primary CTA:** get in touch (contact form + email/socials).
 
@@ -63,7 +63,7 @@ A sticky/section nav with smooth-scroll and scroll-spy is encouraged.
 - **Name:** Karan Khatavkar
 - **Role:** RAG & Agentic AI Engineer *(revised Jul 13, 2026 — RAG expert first, agents second; replaces the generic "AI/ML Engineer" framing in copy, section order, and SEO)*
 - **Tagline:** "I build RAG systems and AI agents that hold up in production."
-- **Bio:** Builds RAG systems and AI agents for clients — retrieval pipelines, evals, and fine-tuned NLP — backed by a deep-learning background in signals and imaging. Available for freelance and contract work.
+- **Bio:** AI Research Engineer building RAG systems and AI agents, with a background in electronics and ML across NLP, imaging, and sensor data.
 - **Location:** Pune, India
 
 ### Contact (public)

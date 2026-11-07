@@ -48,8 +48,7 @@ export function About() {
               className="mt-1 size-1.5 shrink-0 rounded-full bg-emerald-500"
               aria-hidden
             />
-            Based in {profile.location} · Available for freelance &amp; contract
-            work
+            Based in {profile.location} · {profile.role}
           </p>
         </div>
         <div className="w-full">

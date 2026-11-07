@@ -27,9 +27,9 @@ const email = "work.karankh@gmail.com";
 
 export const profile: Profile = {
   name: "Karan Khatavkar",
-  role: "RAG & Agentic AI Engineer",
-  tagline: "Building RAG systems, AI agents, and AI workflows for clients.",
-  bio: "Builds RAG systems, AI agents, and AI workflows for clients, from scoping through evals to a handover their team can run. Available for freelance and contract work.",
+  role: "AI Research Engineer",
+  tagline: "Building RAG systems and AI agents that hold up in production.",
+  bio: "AI Research Engineer in Pune building RAG systems and AI agents, with a background in electronics and ML across NLP, imaging, and sensor data.",
   location: "Pune, India",
   email,
   socials: [
