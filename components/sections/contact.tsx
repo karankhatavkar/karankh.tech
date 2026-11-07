@@ -32,13 +32,13 @@ export function Contact() {
           nativeButton={false}
           render={
             <a
-              href={`mailto:${profile.email}?subject=Call%20request`}
+              href={`mailto:${profile.email}`}
               data-track="contact_click"
               data-track-source="contact_cta"
             />
           }
         >
-          Book a call ↗
+          Email me ↗
         </Button>
         <a
           href={`mailto:${profile.email}`}
@@ -54,13 +54,6 @@ export function Contact() {
       <div className="mt-14">
         <FindMe />
       </div>
-      <a
-        href={profile.resumeHref}
-        className="mt-6 inline-block font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground"
-        data-track="resume_download"
-      >
-        Résumé (PDF) ↗
-      </a>
     </section>
   );
 }

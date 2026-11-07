@@ -16,7 +16,7 @@ import {
  * payload) to instrument a click. This way the sections stay on the server and
  * opt in declaratively:
  *
- *   <a data-track="resume_download">
+ *   <a data-track="project_click">
  *   <a data-track="project_click" data-track-label="EdgarBrief">
  *
  * `data-track-*` attributes past the first become event properties. Keep it to

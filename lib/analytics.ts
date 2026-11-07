@@ -22,8 +22,6 @@ declare global {
 export type AnalyticsEvent =
   /** The conversion. Someone tried to start a conversation. */
   | "contact_click"
-  /** Someone is vetting seriously enough to want the CV. */
-  | "resume_download"
   /** The digital twin got used — evidence for whether it earns its upkeep. */
   | "twin_message_sent"
   /** A project pulled someone through to GitHub. Says what to lead with. */

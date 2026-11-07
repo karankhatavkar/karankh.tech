@@ -20,7 +20,6 @@ export type Profile = {
   bio: string;
   location: string;
   email: string;
-  resumeHref: string;
   socials: SocialLink[];
 };
 
@@ -33,7 +32,6 @@ export const profile: Profile = {
   bio: "Builds RAG systems, AI agents, and AI workflows for clients, from scoping through evals to a handover their team can run. Available for freelance and contract work.",
   location: "Pune, India",
   email,
-  resumeHref: "/resume.pdf",
   socials: [
     {
       label: "LinkedIn",

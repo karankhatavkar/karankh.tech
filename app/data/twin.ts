@@ -73,7 +73,7 @@ export const twinAnswers: TwinAnswer[] = [
     id: "availability",
     match: ["available", "availability", "hire", "hiring", "freelance", "contract", "free", "work with", "rate"],
     reply:
-      "Yes, I'm taking on RAG and agent builds. They're usually scoped the same way: build it, evaluate it, then hand it over so your team can run it without me. A call is the fastest way to find out if it fits.",
+      "Yes, I'm taking on RAG and agent builds. They're usually scoped the same way: build it, evaluate it, then hand it over so your team can run it without me. Email is the fastest way to reach me.",
     sources: [CONTACT],
   },
   {

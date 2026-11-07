@@ -2,7 +2,6 @@ import { ViewTransition } from "react";
 import Link from "next/link";
 import { hero } from "@/app/data/hero";
 import { profile } from "@/app/data/profile";
-import { Button } from "@/components/ui/button";
 import { TwinChat } from "@/components/twin/twin-chat";
 
 // Hash entries scroll within the deck; "/blog" is a real route, so it gets
@@ -91,16 +90,6 @@ export function Hero() {
             );
           })}
         </nav>
-        <Button
-          size="lg"
-          className="rounded-full px-6"
-          nativeButton={false}
-          // Scrolls to Contact rather than opening mail, so it is the top of
-          // the funnel, not a conversion. `source` keeps the two separable.
-          render={<a href="#contact" data-track="contact_click" data-track-source="hero" />}
-        >
-          Book a call ↗
-        </Button>
       </header>
 
       <section
@@ -148,22 +137,8 @@ export function Hero() {
           <p className="mt-[clamp(16px,2.4vh,26px)] max-w-[44ch] text-[clamp(14px,1.3vw,17px)] text-muted-foreground">
             {hero.support}
           </p>
-          {/* The low-commitment ask sits ahead of the high-commitment one: a
-              visitor who isn't ready to book a call can still get an answer
-              without leaving the page. */}
           <div className="mt-[clamp(20px,3.4vh,32px)]">
             <TwinChat />
-          </div>
-
-          <div className="mt-[clamp(20px,3.4vh,32px)]">
-            <Button
-              size="lg"
-              className="rounded-full px-6"
-              nativeButton={false}
-              render={<a href="#contact" />}
-            >
-              Book a call ↗
-            </Button>
           </div>
         </div>
 

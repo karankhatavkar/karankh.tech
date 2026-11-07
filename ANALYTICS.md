@@ -23,19 +23,18 @@ Expect the two page-view counts to **disagree** — different bot filtering, and
 
 ## The event dictionary
 
-Seven events. Each earns its place by answering a question you'd otherwise guess at.
+Six events. Each earns its place by answering a question you'd otherwise guess at.
 
 | Event | Properties | Fires on | The question it answers |
 |---|---|---|---|
-| `contact_click` | `source` | hero CTA, contact CTA, email link, FindMe email, blog post footer | **The conversion.** How many readers try to start a conversation — and which surface produced it |
-| `resume_download` | — | Contact | Who is vetting seriously rather than browsing |
+| `contact_click` | `source` | contact CTA, email link, FindMe email, blog post footer | **The conversion.** How many readers try to start a conversation — and which surface produced it |
 | `twin_message_sent` | `turn` | twin chat | Does the digital twin get used, or is it maintenance for nobody |
 | `project_click` | `label` | demo + source buttons, per project | Which project pulls people through — i.e. what to lead with |
 | `profile_click` | `label` | each social in FindMe | Where people go next when they leave |
 | `writing_opened` | — | "Writing" in the hero nav | Is the blog discoverable from the deck at all |
 | `post_read` | `slug` | a sentinel after the article body | Read to the end, vs merely opened |
 
-**`contact_click.source`** distinguishes `hero` (the CTA that only *scrolls* to Contact — top of funnel, not a conversion), `contact_cta` and `email` and `find_me` (real mail-client opens), and `post_footer` (a reader converting off an article — the number that tells you whether writing pays).
+**`contact_click.source`** distinguishes `contact_cta` and `email` and `find_me` (real mail-client opens), and `post_footer` (a reader converting off an article — the number that tells you whether writing pays).
 
 **`post_read` matters more than page views.** A search result someone bounces off counts identically to a piece somebody actually read. This separates them, and it's the only way to judge whether the writing is working.
 
@@ -82,7 +81,7 @@ app/layout.tsx                            <Analytics />, Umami <Script>, <EventT
 **Sections stay server components.** They opt in declaratively:
 
 ```tsx
-<a data-track="resume_download">
+<a data-track="project_click">
 <a data-track="project_click" data-track-label="EdgarBrief · source">
 ```
 
