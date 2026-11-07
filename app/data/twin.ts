@@ -73,7 +73,7 @@ export const twinAnswers: TwinAnswer[] = [
     id: "availability",
     match: ["what do you do", "current", "role", "job", "available", "availability", "hire", "hiring", "freelance", "contract", "free", "work with", "rate"],
     reply:
-      "I'm working full-time as an AI research engineer, so I'm not taking on freelance builds. I'm always happy to talk RAG, agents, or anything on this page, though. Email is the best way to reach me.",
+      "I work full-time as an AI research engineer and don't take freelance work. For anything else, email me.",
     sources: [CONTACT],
   },
   {

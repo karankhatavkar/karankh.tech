@@ -13,17 +13,17 @@ export function Contact() {
     >
       <p className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.28em] text-muted-foreground">
         <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden />
-        Open to conversations
+        Based in Pune
       </p>
       <h2
         id="contact-heading"
         className="mt-6 text-[clamp(44px,7vw,96px)] leading-[0.95] font-[520] tracking-[-0.04em]"
       >
-        Let&rsquo;s talk.
+        Get in touch.
       </h2>
       <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted-foreground">
-        Working on RAG, agents, or ML on messy real-world data? I&rsquo;m
-        always happy to compare notes.
+        For work, research, or questions about anything on this site, email
+        is the fastest way to reach me.
       </p>
       <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
         <Button

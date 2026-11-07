@@ -20,7 +20,7 @@ export const hero = {
     { text: "AI agents.", muted: false },
   ] satisfies ExpertiseSegment[],
   support:
-    "Grounded in real sources, evaluated properly, and built to hold up with real users.",
+    "AI Research Engineer working on retrieval, agents, and evaluation. Previously shipped production RAG at Amdocs.",
   // Honest, content-driven numbers — update as facts change (DESIGN.md).
   stats: [
     { value: "3+", label: "yrs shipping AI" },
